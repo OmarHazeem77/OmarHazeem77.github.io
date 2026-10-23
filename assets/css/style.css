@@ -984,10 +984,10 @@ html[data-motion="off"] .msg--typing span { animation: none; opacity: 0.6; }
 .assistant__note { padding: 10px 20px 14px; color: var(--muted); font-size: 0.74rem; text-align: center; }
 
 @media (max-width: 767px) {
-  .assistant-launcher { right: 8px; bottom: 8px; width: 84px; height: 84px; }
-  .assistant-launcher .bot--launcher { width: 84px; height: 84px; }
-    .assistant-say { right: 96px; bottom: 32px; max-width: calc(100vw - 112px); }
-  .has-motion-prompt .assistant-say { bottom: 172px; }
+  .assistant-launcher { right: 10px; bottom: 10px; width: 68px; height: 68px; }
+  .assistant-launcher .bot--launcher { width: 68px; height: 68px; }
+  .assistant-say { right: 82px; bottom: 25px; max-width: calc(100vw - 96px); }
+  .has-motion-prompt .assistant-say { bottom: 165px; }
   .has-motion-prompt .assistant-launcher { bottom: 150px; }
   /* phones: a floating card over the lower part of the screen, so the page stays in view above it */
   .assistant {

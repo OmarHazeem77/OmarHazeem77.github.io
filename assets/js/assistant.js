@@ -245,6 +245,7 @@
         '<radialGradient id="be' + n + '"><stop offset="0" stop-color="#F8FFE0"/><stop offset=".55" stop-color="#DBFF7E"/><stop offset="1" stop-color="#B9E640"/></radialGradient>' +
         '<filter id="bg' + n + '" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>' +
       '</defs>' +
+      '<g class="bot__turn">' +
       '<ellipse cx="19" cy="64" rx="10" ry="17" fill="url(#bc' + n + ')"/>' +
       '<ellipse class="bot__light" cx="16.5" cy="64" rx="5" ry="11.5" filter="url(#bg' + n + ')"/>' +
       '<circle cx="64" cy="62" r="46" fill="url(#bc' + n + ')"/>' +
@@ -252,12 +253,54 @@
       '<ellipse class="bot__rim" cx="70" cy="63" rx="37" ry="34.5" filter="url(#bg' + n + ')"/>' +
       '<ellipse cx="70" cy="63" rx="34" ry="31.5" fill="url(#bv' + n + ')"/>' +
       '<path d="M46 50 Q53 37 71 35" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" opacity=".38"/>' +
+      '<g class="bot__face">' +
       '<g class="bot__eyes" filter="url(#bg' + n + ')"><ellipse cx="57" cy="58" rx="9" ry="10" fill="url(#be' + n + ')"/><ellipse cx="84" cy="58" rx="9" ry="10" fill="url(#be' + n + ')"/></g>' +
       '<path class="bot__smile" d="M64 78 q6.5 5 13 0" filter="url(#bg' + n + ')"/>' +
       '<ellipse class="bot__talk" cx="70.5" cy="80" rx="5" ry="3.4" filter="url(#bg' + n + ')"/>' +
+      '</g></g>' +
     '</svg>';
     return w;
   }
+
+  // The robot watches the pointer: its eyes and mouth shift toward it anywhere on the page, and when it
+  // comes close the whole head turns to it. On touch screens it glances at a tap, then looks ahead again.
+  // Calm motion keeps it still.
+  (function () {
+    var px = null, py = null, idle = null, running = false, state = new WeakMap();
+    function point(e) {
+      px = e.clientX; py = e.clientY;
+      clearTimeout(idle);
+      if (e.pointerType && e.pointerType !== "mouse") idle = setTimeout(function () { px = null; kick(); }, 1600);
+      kick();
+    }
+    window.addEventListener("pointermove", point, { passive: true });
+    window.addEventListener("pointerdown", point, { passive: true });
+    document.addEventListener("mouseout", function (e) { if (!e.relatedTarget) { px = null; kick(); } });
+    function kick() { if (!running) { running = true; requestAnimationFrame(tick); } }
+    function tick() {
+      var busy = false;
+      document.querySelectorAll(".bot").forEach(function (b) {
+        var face = b.querySelector(".bot__face"), turn = b.querySelector(".bot__turn");
+        if (!face) return;
+        var r = b.getBoundingClientRect(), st = state.get(b) || { x: 0, y: 0, a: 0 };
+        var tx = 0, ty = 0, ta = 0;
+        if (px !== null && r.width && motionOn()) {
+          var dx = px - (r.left + r.width / 2), dy = py - (r.top + r.height / 2), d = Math.hypot(dx, dy) || 1;
+          var reach = Math.min(1, d / 120);              // near the centre the eyes move less
+          tx = dx / d * 6 * reach; ty = dy / d * 5 * reach;
+          var near = 1 - Math.min(1, Math.max(0, (d - 70) / 230));   // head turns within ~300px
+          ta = dx / d * 10 * near;
+        }
+        st.x += (tx - st.x) * 0.14; st.y += (ty - st.y) * 0.14; st.a += (ta - st.a) * 0.1;
+        if (Math.abs(tx - st.x) + Math.abs(ty - st.y) + Math.abs(ta - st.a) > 0.02) busy = true;
+        else { st.x = tx; st.y = ty; st.a = ta; }
+        state.set(b, st);
+        face.setAttribute("transform", "translate(" + st.x.toFixed(2) + " " + st.y.toFixed(2) + ")");
+        turn.setAttribute("transform", "rotate(" + st.a.toFixed(2) + " 64 62)");
+      });
+      if (busy) requestAnimationFrame(tick); else running = false;
+    }
+  })();
 
   var launcher = el("button", "assistant-launcher");
   launcher.type = "button";
