@@ -25,7 +25,7 @@
     location.reload();
   });
   /* ---------- Light / dark theme ---------- */
-  // The head script already applied the saved or device theme; this button switches it and remembers the choice.
+  // The head script already applied dark (the default) or the visitor's saved light choice; this button switches it and remembers the choice.
   // scene.js listens for "oh-theme" to recolour the 3D field.
   var themeBtn = document.querySelector("[data-theme-toggle]");
   var themeMeta = document.querySelector('meta[name="theme-color"]');
@@ -45,10 +45,6 @@
     try { localStorage.setItem("oh-theme", next); } catch (e) {}
     applyTheme(next, true);
   });
-  // follow the device when the visitor hasn't picked a theme themselves
-  var themeMq = window.matchMedia("(prefers-color-scheme: light)");
-  var onThemeMq = function (e) { var saved = null; try { saved = localStorage.getItem("oh-theme"); } catch (x) {} if (!saved) applyTheme(e.matches ? "light" : "dark", true); };
-  if (themeMq.addEventListener) themeMq.addEventListener("change", onThemeMq);
 
   var promptBox = document.querySelector("[data-motion-prompt-box]");
   if (root.hasAttribute("data-motion-prompt")) {

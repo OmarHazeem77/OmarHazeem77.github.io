@@ -45,11 +45,11 @@
       document.documentElement.setAttribute("data-motion", saved || (reduce ? "off" : "on"));
       if (!saved && reduce) document.documentElement.setAttribute("data-motion-prompt", "");
     })();
-    // Theme: a saved visitor choice wins, otherwise follow the device's light or dark setting. Set before paint.
+    // Theme: dark by default; a visitor who switches to light keeps it on later visits. Set before paint.
     (function () {
       var t = null;
       try { t = localStorage.getItem("oh-theme"); } catch (e) {}
-      if (t !== "light" && t !== "dark") t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      if (t !== "light") t = "dark";
       document.documentElement.setAttribute("data-theme", t);
       var m = document.querySelector('meta[name="theme-color"]');
       if (m) m.setAttribute("content", t === "light" ? "#F2F3EF" : "#07090D");

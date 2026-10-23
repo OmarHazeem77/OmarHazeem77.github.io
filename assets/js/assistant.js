@@ -137,14 +137,14 @@
   var FALLBACK = "I'm not sure about that one. I only answer from Omar's verified profile, so I won't guess. You could try one of these, or ask Omar directly at {email}.";
   var ARABIC = "أهلاً وسهلاً! أجيب حالياً باللغة الإنجليزية فقط. جرّب أن تكتب سؤالك بالإنجليزية، أو راسل عمر مباشرة على {email}";
   var CHIPS = {
-    about: "Who is Omar?", role: "What does he do?", netways: "Tell me about Netways", current: "What's he working on now?",
-    previous: "His previous project", projects: "What has he worked on?", method: "How does he work?", ai: "How does he use AI?", site: "How was this site built?",
+    about: "Who is Omar?", role: "What does Omar do?", netways: "Tell me about Netways", current: "What is Omar working on now?",
+    previous: "His previous project", projects: "What has he worked on?", method: "How does he work?", ai: "How does Omar use AI?", site: "How was this site built?",
     deliverables: "What does he deliver?", tools: "Which tools does he use?", brd: "What's a BRD?", rtm: "What's an RTM?", mom: "Minutes of meeting?",
     testing: "Does he do testing?", skills: "What are his skills?", education: "Where did he study?",
-    certs: "Any certificates?", experience: "How long has he been a BA?", location: "Where is he based?",
-    contact: "How can I contact him?", cv: "Can I get his CV?", availability: "Is he open to new roles?", why: "Why work with Omar?"
+    certs: "Which certificates does Omar have?", experience: "How long has he been a BA?", location: "Where is he based?",
+    contact: "How can I contact Omar?", cv: "Can I download Omar's CV?", availability: "Is he open to new roles?", why: "Why work with Omar?"
   };
-  var START = ["role", "ai", "current", "contact"];
+  var START = ["role", "contact", "ai", "current", "cv"];   // direct questions offered when the chat opens
   var byId = {};
   INTENTS.forEach(function (it) { byId[it.id] = it; });
 
@@ -232,16 +232,30 @@
     return s;
   }
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
-  // The assistant's face: a small robot head on a lime disc (antenna, ears, screen eyes that blink, a smile)
+  // The assistant's face: a chrome robot head with a dark glossy visor, glowing lime eyes that blink,
+  // a lime light on its side, and a mouth that moves while it greets the visitor.
+  var botN = 0;
   function bot(cls) {
-    var w = el("span", "bot " + (cls || ""));
+    var n = ++botN, w = el("span", "bot " + (cls || ""));
     w.setAttribute("aria-hidden", "true");
-    w.innerHTML = '<svg viewBox="0 0 40 40"><circle class="bot__bg" cx="20" cy="20" r="20"/>' +
-      '<path class="bot__stem" d="M20 7.6v4"/><circle class="bot__tip" cx="20" cy="6.4" r="2.1"/>' +
-      '<rect class="bot__ink" x="7.2" y="18" width="2.6" height="6.4" rx="1.3"/><rect class="bot__ink" x="30.2" y="18" width="2.6" height="6.4" rx="1.3"/>' +
-      '<rect class="bot__ink" x="10" y="11.6" width="20" height="17.4" rx="6.2"/>' +
-      '<g class="bot__eyes"><ellipse cx="15.9" cy="19.6" rx="2.1" ry="2.5"/><ellipse cx="24.1" cy="19.6" rx="2.1" ry="2.5"/></g>' +
-      '<path class="bot__smile" d="M16.4 24.2q3.6 2.7 7.2 0"/></svg>';
+    w.innerHTML = '<svg viewBox="0 0 124 124">' +
+      '<defs>' +
+        '<radialGradient id="bc' + n + '" cx=".34" cy=".28" r=".78"><stop offset="0" stop-color="#fff"/><stop offset=".22" stop-color="#E3E7EC"/><stop offset=".52" stop-color="#AEB6C0"/><stop offset=".8" stop-color="#6A737E"/><stop offset="1" stop-color="#363C45"/></radialGradient>' +
+        '<linearGradient id="bv' + n + '" x1="0" y1="0" x2=".2" y2="1"><stop offset="0" stop-color="#2B323C"/><stop offset=".5" stop-color="#0C1015"/><stop offset="1" stop-color="#040608"/></linearGradient>' +
+        '<radialGradient id="be' + n + '"><stop offset="0" stop-color="#F8FFE0"/><stop offset=".55" stop-color="#DBFF7E"/><stop offset="1" stop-color="#B9E640"/></radialGradient>' +
+        '<filter id="bg' + n + '" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>' +
+      '</defs>' +
+      '<ellipse cx="19" cy="64" rx="10" ry="17" fill="url(#bc' + n + ')"/>' +
+      '<ellipse class="bot__light" cx="16.5" cy="64" rx="5" ry="11.5" filter="url(#bg' + n + ')"/>' +
+      '<circle cx="64" cy="62" r="46" fill="url(#bc' + n + ')"/>' +
+      '<ellipse cx="46" cy="34" rx="15" ry="8" fill="#fff" opacity=".55" transform="rotate(-28 46 34)"/>' +
+      '<ellipse class="bot__rim" cx="70" cy="63" rx="37" ry="34.5" filter="url(#bg' + n + ')"/>' +
+      '<ellipse cx="70" cy="63" rx="34" ry="31.5" fill="url(#bv' + n + ')"/>' +
+      '<path d="M46 50 Q53 37 71 35" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" opacity=".38"/>' +
+      '<g class="bot__eyes" filter="url(#bg' + n + ')"><ellipse cx="57" cy="58" rx="9" ry="10" fill="url(#be' + n + ')"/><ellipse cx="84" cy="58" rx="9" ry="10" fill="url(#be' + n + ')"/></g>' +
+      '<path class="bot__smile" d="M64 78 q6.5 5 13 0" filter="url(#bg' + n + ')"/>' +
+      '<ellipse class="bot__talk" cx="70.5" cy="80" rx="5" ry="3.4" filter="url(#bg' + n + ')"/>' +
+    '</svg>';
     return w;
   }
 
@@ -252,10 +266,7 @@
   launcher.setAttribute("aria-label", "Ask about Omar: open the AI assistant");
   launcher.setAttribute("data-cursor-text", "Ask");
   launcher.appendChild(bot("bot--launcher"));
-  var launchText = el("span", "assistant-launcher__label");
-  launchText.appendChild(el("span", "assistant-launcher__title", "Ask about Omar"));
-  launchText.appendChild(el("span", "assistant-launcher__sub", "AI assistant · online"));
-  launcher.appendChild(launchText);
+  launcher.appendChild(el("span", "sr-only", "Ask about Omar"));
 
   var panel = el("section", "assistant");
   panel.id = "assistant-panel";
@@ -447,47 +458,67 @@
   function autosize() { input.style.height = "auto"; input.style.height = Math.min(120, input.scrollHeight) + "px"; }
   input.addEventListener("input", autosize);
 
-  /* ---------- A one-time hello beside the launcher ---------- */
-  // Once per visit, a few seconds after the launcher is on screen, the bot says hi; clicking it opens the chat.
-  var hello = el("div", "assistant-hello");
+  /* ---------- The robot greets visitors ---------- */
+  // A speech bubble beside the robot runs through greetings while its mouth moves, then settles on an invitation.
+  // Clicking the bubble opens the chat; its x dismisses it for the rest of the visit.
+  var GREETINGS = [
+    { t: "Hi! 👋" }, { t: "Hello!" }, { t: "السلام عليكم!", rtl: true }, { t: "Bonjour!" }, { t: "Ask me about Omar", last: true }
+  ];
+  var hello = el("div", "assistant-say");
   hello.hidden = true;
-  var helloText = el("button", "assistant-hello__text");
+  var helloText = el("button", "assistant-say__text");
   helloText.type = "button";
-  helloText.appendChild(el("strong", null, "Hi! 👋 "));
-  helloText.appendChild(document.createTextNode("I'm Omar's assistant. Ask me anything about his work."));
-  var helloClose = el("button", "assistant-hello__close");
+  var helloClose = el("button", "assistant-say__close");
   helloClose.type = "button"; helloClose.setAttribute("aria-label", "Dismiss the greeting");
   helloClose.appendChild(svg(ICON.close));
   hello.appendChild(helloText); hello.appendChild(helloClose);
   document.body.appendChild(hello);
-  var helloTimer = null;
-  function hideHello() {
-    clearTimeout(helloTimer);
-    try { sessionStorage.setItem("oh-hello", "1"); } catch (e) {}
+  var sayTimer = null, sayStep = 0, sayDone = false, mouthTimer = null;
+  try { sayDone = sessionStorage.getItem("oh-hello") === "1"; } catch (e) {}
+  function setLine(g) {
+    helloText.textContent = g.t;
+    helloText.dir = g.rtl ? "rtl" : "ltr";
+    hello.classList.toggle("is-invite", !!g.last);
+    hello.classList.remove("is-pop"); void hello.offsetWidth; hello.classList.add("is-pop");
+    if (motionOn()) {   // the mouth moves while a line is "spoken"
+      launcher.classList.add("is-talking");
+      clearTimeout(mouthTimer); mouthTimer = setTimeout(function () { launcher.classList.remove("is-talking"); }, 900);
+    }
+  }
+  function hideHello(forever) {
+    clearTimeout(sayTimer);
+    launcher.classList.remove("is-talking");
+    if (forever) { sayDone = true; try { sessionStorage.setItem("oh-hello", "1"); } catch (e) {} }
     if (hello.hidden) return;
     hello.classList.remove("is-shown");
-    setTimeout(function () { hello.hidden = true; }, motionOn() ? 300 : 0);
+    setTimeout(function () { if (!hello.classList.contains("is-shown")) hello.hidden = true; }, motionOn() ? 300 : 0);
   }
   function launcherVisible() { var cs = getComputedStyle(launcher); return cs.visibility !== "hidden" && parseFloat(cs.opacity) > 0.5; }
-  function showHello(tries) {
-    if (!panel.hidden) return;
+  function showHello(tries, fromStart) {
+    if (!panel.hidden || sayDone) return;
     // on phones the bubble would sit over the hero buttons, so it waits until the visitor has scrolled a little
     var heroInTheWay = window.matchMedia("(max-width: 767px)").matches && window.scrollY < window.innerHeight * 0.45;
-    if (!launcherVisible() || heroInTheWay) { if (tries < 30) setTimeout(function () { showHello(tries + 1); }, 2000); return; }
+    if (!launcherVisible() || heroInTheWay) { if (tries < 40) sayTimer = setTimeout(function () { showHello(tries + 1, fromStart); }, 1500); return; }
+    clearTimeout(sayTimer);
     hello.hidden = false;
     requestAnimationFrame(function () { hello.classList.add("is-shown"); });
-    helloTimer = setTimeout(hideHello, 9000);
+    sayStep = fromStart ? 0 : GREETINGS.length - 1;
+    (function next() {
+      setLine(GREETINGS[sayStep]);
+      if (GREETINGS[sayStep].last) { sayTimer = setTimeout(function () { hideHello(false); }, 7000); return; }
+      sayStep++; sayTimer = setTimeout(next, motionOn() ? 1700 : 2200);
+    })();
   }
-  helloText.addEventListener("click", function () { hideHello(); open(); });
-  helloClose.addEventListener("click", hideHello);
-  var helloSeen = null;
-  try { helloSeen = sessionStorage.getItem("oh-hello"); } catch (e) {}
-  if (!helloSeen) setTimeout(function () { showHello(0); }, 6000);
+  helloText.addEventListener("click", function () { hideHello(true); open(); });
+  helloClose.addEventListener("click", function () { hideHello(true); });
+  // hovering the robot brings the invitation back
+  launcher.addEventListener("mouseenter", function () { if (panel.hidden && !sayDone && hello.hidden) showHello(0, false); });
+  setTimeout(function () { showHello(0, true); }, 2500);
 
   /* ---------- Open / close ---------- */
   var started = false;
   function open() {
-    hideHello();
+    hideHello(true);
     panel.hidden = false;
     launcher.setAttribute("aria-expanded", "true");
     root.classList.add("assistant-open");
@@ -501,7 +532,7 @@
         setChips(START);
       } else {
         var hi = addBot();
-        renderInto(hi, "Hi! I'm Omar's assistant. Ask me anything about his work, his projects, how he works or how to reach him.");
+        renderInto(hi, "Hi! \uD83D\uDC4B I'm Omar's AI assistant. Pick a question below, or type your own.");
         setChips(START);
       }
     }
