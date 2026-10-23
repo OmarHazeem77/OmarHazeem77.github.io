@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en" data-motion="on">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Omar Hazeem · Agentic Business Analyst</title>
+  <meta name="description" content="Omar Hazeem, Agentic Business Analyst at Netways. I take clients from discovery to BRDs to AI-built solutions, using Claude, Claude Code, MCP and Wispr Flow at every step.">
+  <meta name="theme-color" content="#07090D">
+  <meta property="og:title" content="Omar Hazeem · Agentic Business Analyst">
+  <meta property="og:description" content="Client discovery → BRDs → AI-built solutions.">
+  <meta property="og:image" content="https://omarhazeem77.github.io/assets/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://omarhazeem77.github.io/">
+  <meta property="og:site_name" content="Omar Hazeem">
+  <link rel="canonical" href="https://omarhazeem77.github.io/">
+  <meta property="og:image:alt" content="Omar Hazeem, Agentic Business Analyst at Netways, beside a chrome process thread rendered in Blender">
+  <meta property="og:type" content="profile">
+  <meta name="author" content="Omar Hazeem">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://omarhazeem77.github.io/assets/img/og.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Omar Hazeem",
+    "jobTitle": "Agentic Business Analyst",
+    "worksFor": { "@type": "Organization", "name": "Netways" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Lebanese International University" },
+    "email": "mailto:omarhazeem2005@gmail.com",
+    "telephone": "+961 71 829 730",
+    "url": "https://omarhazeem77.github.io/",
+    "sameAs": ["https://www.linkedin.com/in/omar-hazeem-71991427b/"],
+    "knowsAbout": ["Business analysis", "Requirements gathering", "AI agents", "Claude", "Claude Code", "Model Context Protocol", "Wispr Flow", "Business Requirements Documents", "Requirements Traceability Matrix", "Workflow design", "Azure DevOps", "User acceptance testing"]
+  }
+  </script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2307090D'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23C9F25B'/%3E%3C/svg%3E">
+  <script>
+    // Motion preference: a saved visitor choice wins, otherwise follow the system setting.
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem("oh-motion"); } catch (e) {}
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (/[?&]motion=1\b/.test(location.search)) saved = "on";
+      document.documentElement.setAttribute("data-motion", saved || (reduce ? "off" : "on"));
+      if (!saved && reduce) document.documentElement.setAttribute("data-motion-prompt", "");
+    })();
+    // Theme: a saved visitor choice wins, otherwise follow the device's light or dark setting. Set before paint.
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("oh-theme"); } catch (e) {}
+      if (t !== "light" && t !== "dark") t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", t);
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute("content", t === "light" ? "#F2F3EF" : "#07090D");
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip" href="#work">Skip to selected work</a>
+
+  <!-- Loader: counts while the scene builds -->
+  <div class="loader" data-loader aria-hidden="true">
+    <div class="loader__inner">
+      <span class="loader__name">Omar Hazeem</span>
+      <span class="loader__count"><span data-loader-count>0</span>%</span>
+    </div>
+    <div class="loader__bar"><span data-loader-bar></span></div>
+  </div>
+
+  <!-- Background layer: one WebGL particle field for the whole page -->
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <!-- The real photo: the particles assemble, then resolve into it (positioned by scene.js) -->
+  <div class="portrait-stage" data-portrait aria-hidden="true">
+    <div class="portrait-stage__glow"></div>
+    <img class="portrait-stage__img" src="assets/img/portrait.webp" alt="" width="1254" height="1254" decoding="async">
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+  <!-- Custom cursor (fine pointers with motion on only; main.js) -->
+  <div class="cursor" data-cursor aria-hidden="true">
+    <div class="cursor__ring" data-cursor-ring><span class="cursor__label" data-cursor-label></span></div>
+    <div class="cursor__dot" data-cursor-dot></div>
+  </div>
+
+  <div class="progress" aria-hidden="true"><span data-progress></span></div>
+
+  <header class="nav" data-nav>
+    <a class="nav__mark" href="#top">Omar Hazeem</a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#method" data-nav-link="method">Method</a>
+      <a href="#transform" data-nav-link="transform">As-Is → To-Be</a>
+      <a href="#work" data-nav-link="work">Work</a>
+      <a href="#deliverables" data-nav-link="deliverables">Deliverables</a>
+      <a href="#background" data-nav-link="background">Background</a>
+    </nav>
+    <div class="nav__right">
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode" data-cursor-text="Theme">
+        <svg class="theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+        <svg class="theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8Z"/></svg>
+      </button>
+      <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="true">
+        <span class="motion-toggle__dot" aria-hidden="true"></span>
+        <span data-motion-label>Motion on</span>
+      </button>
+      <a class="btn btn--light btn--sm" href="#contact">Get in touch</a>
+    </div>
+  </header>
+
+  <div class="motion-prompt" data-motion-prompt-box role="dialog" aria-label="Animation preference" hidden>
+    <p>Your device asks for reduced motion, so the 3D story is calm. Turn the animations on?</p>
+    <div class="motion-prompt__actions">
+      <button class="btn btn--accent btn--sm" type="button" data-motion-yes>Turn on</button>
+      <button class="link" type="button" data-motion-no>Keep it calm</button>
+    </div>
+  </div>
+
+  <main id="top">
+    <!-- HERO · stage 0: portrait -->
+    <section class="hero" data-stage="0" aria-labelledby="hero-name">
+      <img class="hero__fallback" src="assets/portrait-cutout.png" width="900" height="900" alt="Portrait of Omar Hazeem in a black suit and glasses">
+      <div class="hero__copy">
+        <h1 id="hero-name" class="hero__name" data-split="chars">Omar<br>Hazeem</h1>
+        <p class="hero__role" data-reveal="fade">Agentic Business Analyst at Netways</p>
+        <p class="hero__lede" data-split="lines">I take clients from what's slowing them down to a solution their developers can build, and I use AI at every step to get there faster.</p>
+        <div class="hero__actions" data-reveal="fade">
+          <a class="btn btn--accent" href="#contact">Get in touch</a>
+          <a class="btn btn--ghost" href="#work">See the work</a>
+          <a class="btn btn--ghost" href="assets/cv/Omar-Hazeem-Agentic-Business-Analyst-CV.pdf" download="Omar Hazeem - Agentic Business Analyst CV.pdf" data-cv data-cursor-text="Download">Download CV</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATEMENT · the thread draws itself in while the words light up -->
+    <section class="statement" data-stage="1" aria-label="How I work">
+      <p class="statement__text" data-statement>I sit with the people who do the work, ask the questions nobody has asked yet, and use AI to turn what I hear into requirements, workflows and working solutions.</p>
+    </section>
+
+    <!-- METHOD · pinned: the Blender-made process thread morphs act by act -->
+    <section id="method" class="story" aria-labelledby="method-title">
+      <h2 id="method-title" class="sr-only">How I work, in four steps</h2>
+      <div class="story__pin" data-story-pin>
+        <div class="story__rail" aria-hidden="true">
+          <ol>
+          <li data-rail="1" class="is-active"><span class="mono">01</span><span>Listen</span></li>
+          <li data-rail="2"><span class="mono">02</span><span>Map the <span class="nb">As-Is</span></span></li>
+          <li data-rail="3"><span class="mono">03</span><span>Design the <span class="nb">To-Be</span></span></li>
+          <li data-rail="4"><span class="mono">04</span><span>Automate</span></li>
+          </ol>
+          <span class="story__progress"><span data-rail-fill></span></span>
+        </div>
+
+        <div class="story__acts">
+          <article class="story__act is-active" data-act="1" aria-labelledby="act1">
+            <h3 id="act1" class="story__title" data-act-title>It starts with the right questions.</h3>
+            <p class="story__body" data-act-body>I lead discovery sessions with the people who do the work. Wispr Flow captures every session, so my attention stays on the detailed questions that show how a process really runs.</p>
+            <div class="transcript" data-act-extra aria-label="Examples of questions I ask in discovery sessions">
+              <p class="transcript__q"><span class="transcript__tag" aria-hidden="true">Q</span><span data-questions>Who receives the request first?</span></p>
+              <ul class="sr-only">
+                <li>Who receives the request first?</li>
+                <li>Where does it wait, and for how long?</li>
+                <li>Which checks are still done by hand?</li>
+                <li>What happens when a document is missing?</li>
+                <li>Who has to approve it, and why?</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="story__act" data-act="2" aria-labelledby="act2">
+            <h3 id="act2" class="story__title" data-act-title>Map how work happens today.</h3>
+            <p class="story__body" data-act-body>Every hand-off, approval and re-check goes into an <span class="nb">As-Is</span> model. Claude helps me structure it into minutes and requirements the client recognises as their own.</p>
+          </article>
+
+          <article class="story__act" data-act="3" aria-labelledby="act3">
+            <h3 id="act3" class="story__title" data-act-title>Propose a leaner way to work.</h3>
+            <p class="story__body" data-act-body>I propose <span class="nb">To-Be</span> workflows that remove duplicate steps and shorten waits, then prototype them with Claude Code so stakeholders can react to something real before the build.</p>
+          </article>
+
+          <article class="story__act" data-act="4" aria-labelledby="act4">
+            <h3 id="act4" class="story__title" data-act-title>Let the system carry the routine.</h3>
+            <p class="story__body" data-act-body>Steps that need no judgment get automated, so people spend their time on decisions. I write the stories in Azure DevOps, work with the developers and test until it ships.</p>
+          </article>
+        </div>
+      </div>
+
+      <!-- Scroll length for the pinned story: one step per act -->
+      <div class="story__step" data-stage="1" aria-hidden="true"></div>
+      <div class="story__step" data-stage="2" aria-hidden="true"></div>
+      <div class="story__step" data-stage="3" aria-hidden="true"></div>
+      <div class="story__step" data-stage="4" aria-hidden="true"></div>
+    </section>
+
+    <!-- AS-IS → TO-BE · an example process is mapped, scanned by an AI agent and rebuilt (assets/js/transform.js) -->
+    <section class="tf" id="transform" data-stage="5" data-transform aria-labelledby="tf-title">
+      <div class="tf__pin" data-tf-pin>
+        <div class="tf__head">
+          <h2 id="tf-title" class="section-title" data-split="chars">As-Is to To-Be</h2>
+          <p class="tf__lede">A process as I'd find it in discovery, then rebuilt. An AI agent flags the waste, and the flow is redesigned around one human decision.</p>
+        </div>
+
+        <div class="tf__panel">
+          <div class="tf__bar">
+            <span class="mono tf__file"><span class="tf__file-dot" aria-hidden="true"></span>Example · document approval</span>
+            <ol class="tf__rail" aria-hidden="true">
+              <li data-tf-phase="0"><span class="mono">01</span><span class="tf__rail-name">Map the As-Is</span></li>
+              <li data-tf-phase="1"><span class="mono">02</span><span class="tf__rail-name">AI analysis</span></li>
+              <li data-tf-phase="2"><span class="mono">03</span><span class="tf__rail-name">Redesign</span></li>
+              <li data-tf-phase="3"><span class="mono">04</span><span class="tf__rail-name">To-Be</span></li>
+            </ol>
+            <div class="tf__modes" role="group" aria-label="Show the process">
+              <button type="button" class="tf__mode" data-tf-mode="0" aria-pressed="true">As-Is</button>
+              <button type="button" class="tf__mode" data-tf-mode="1" aria-pressed="false">To-Be</button>
+            </div>
+          </div>
+
+          <div class="tf__stage">
+            <svg class="tf__svg" data-tf-svg role="img" aria-labelledby="tf-desc" viewBox="0 0 1280 640"></svg>
+          </div>
+
+          <div class="tf__foot">
+            <p class="mono tf__status" data-tf-status>As-Is · 12 steps · 2 rework loops · a 3-day wait</p>
+            <dl class="tf__metrics">
+              <div class="tf__metric"><dt>Steps</dt><dd><span data-tf-m>12</span><span class="mono tf__delta" data-tf-delta>−50%</span></dd></div>
+              <div class="tf__metric"><dt>Manual steps</dt><dd><span data-tf-m>8</span><span class="mono tf__delta" data-tf-delta>−88%</span></dd></div>
+              <div class="tf__metric"><dt>Rework loops</dt><dd><span data-tf-m>2</span><span class="mono tf__delta" data-tf-delta>None</span></dd></div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="sr-only" id="tf-desc">
+          <p>Example process, document approval. As-Is: 12 steps, 8 of them manual, with two rework loops: request arrives by email, logged in a spreadsheet, forwarded to a reviewer, documents checked by hand, missing documents chased (looping back to the start), re-keyed into the system, a three-day wait for the manager, print sign and scan, a second review (looping back to the document check), archived in a shared folder, requester emailed, done.</p>
+          <p>An AI agent flags duplicates, manual re-keying, waits and loops.</p>
+          <p>To-Be: 6 steps across three lanes. Requester: request via portal. AI agent: intake and logging, then completeness check. Team: one-click approval. AI agent: auto archive and notify. Requester: done. One manual step, no rework loops.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK · stage 5: cards pin and stack -->
+    <section class="work" id="work" data-stage="5" aria-labelledby="work-title">
+      <h2 id="work-title" class="section-title" data-split="chars">Selected work</h2>
+
+      <div class="projects">
+        <article class="project" style="--i: 0">
+          <div class="project__side">
+            <h3 class="project__client">Capital-markets regulator</h3>
+            <p class="project__where"><span class="live-dot" aria-hidden="true"></span>Current project via Netways, Saudi Arabia</p>
+          </div>
+          <div class="project__main">
+            <ol class="project__steps">
+              <li><span class="mono">01</span><span>Discovery workshops with the regulator's teams</span></li>
+              <li><span class="mono">02</span><span>Extracting and documenting the <span class="nb">As-Is</span></span></li>
+              <li><span class="mono">03</span><span>Proposing enhancements and <span class="nb">To-Be</span> workflows</span></li>
+            </ol>
+            <p class="project__summary">Business analysis for a Saudi capital-markets regulator: understanding how the work runs today, then proposing workflows that reduce the manual effort in it.</p>
+            <ul class="project__tags">
+              <li>Discovery workshops</li><li><span class="nb">As-Is</span></li><li><span class="nb">To-Be</span> workflows</li><li>BRD</li><li>RTM</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="project" style="--i: 1">
+          <div class="project__side">
+            <h3 class="project__client">Petrochemical company</h3>
+            <p class="project__where">Previous project via Netways, Saudi Arabia</p>
+          </div>
+          <div class="project__main">
+            <!-- Add the specific system or process once confirmed. -->
+            <p class="project__summary project__summary--lead">Business analysis on a Netways engagement for a petrochemical company's operations in Saudi Arabia: client sessions, requirements documentation and workflow design.</p>
+            <ul class="project__tags">
+              <li>Client sessions</li><li>Requirements</li><li>Workflow design</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="project" style="--i: 2">
+          <div class="project__side">
+            <h3 class="project__client">This portfolio</h3>
+            <p class="project__where">Built end to end with AI</p>
+          </div>
+          <div class="project__main">
+            <ol class="project__steps">
+              <li><span class="mono">01</span><span>Built the site with Claude Code</span></li>
+              <li><span class="mono">02</span><span>Modelled the 3D thread and deliverables in Blender through MCP</span></li>
+              <li><span class="mono">03</span><span>Added an assistant that answers from my verified profile, ready to run on the Claude API</span></li>
+            </ol>
+            <p class="project__summary">A working example of how I build: describe the outcome, let agents do the heavy lifting, and review every result before it ships.</p>
+            <ul class="project__tags">
+              <li>Claude Code</li><li>MCP</li><li>Blender</li><li>Claude API</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- DELIVERABLES · pinned horizontal gallery of Blender-rendered artefacts -->
+    <section class="deliver" id="deliverables" data-stage="5" aria-labelledby="deliver-title">
+      <div class="deliver__pin" data-deliver-pin>
+        <div class="deliver__intro">
+          <h2 id="deliver-title" class="section-title" data-split="chars">What I deliver</h2>
+          <p class="deliver__lede">Every engagement leaves documents the client can sign and the developers can build and test from. AI drafts the structure; I own every line.</p>
+        </div>
+        <div class="deliver__viewport">
+          <ul class="deliver__track" data-deliver-track>
+            <li class="deliver__card">
+              <figure class="deliver__fig"><img src="assets/img/deliver-brd.webp" alt="" width="900" height="665" loading="lazy" decoding="async"></figure>
+              <h3 class="deliver__name">Business Requirements Document</h3>
+              <p class="deliver__desc">The agreed scope, business rules and requirements, written so the client can sign it and the team can build from it.</p>
+            </li>
+            <li class="deliver__card">
+              <figure class="deliver__fig"><img src="assets/img/deliver-rtm.webp" alt="" width="900" height="410" loading="lazy" decoding="async"></figure>
+              <h3 class="deliver__name">Requirements Traceability Matrix</h3>
+              <p class="deliver__desc">Each requirement linked to its design and its test, so nothing is lost between the workshop and the release.</p>
+            </li>
+            <li class="deliver__card">
+              <figure class="deliver__fig"><img src="assets/img/deliver-mom.webp" alt="" width="900" height="790" loading="lazy" decoding="async"></figure>
+              <h3 class="deliver__name">Minutes of meeting</h3>
+              <p class="deliver__desc">Captured with Wispr Flow and structured with Claude: decisions, owners and action items after every client session, so scope stays agreed.</p>
+            </li>
+            <li class="deliver__card">
+              <figure class="deliver__fig"><img src="assets/img/deliver-flow.webp" alt="" width="900" height="337" loading="lazy" decoding="async"></figure>
+              <h3 class="deliver__name">Workflow diagrams</h3>
+              <p class="deliver__desc"><span class="nb">As-Is</span> and <span class="nb">To-Be</span> flows that align stakeholders and developers on how the process should run.</p>
+            </li>
+            <li class="deliver__card">
+              <figure class="deliver__fig"><img src="assets/img/deliver-tests.webp" alt="" width="900" height="484" loading="lazy" decoding="async"></figure>
+              <h3 class="deliver__name">Test cases</h3>
+              <p class="deliver__desc">Written and run in Azure DevOps to check each feature against its acceptance criteria before it ships.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="toolkit" data-stage="5" aria-label="Toolkit">
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track" data-marquee>
+          <span>Claude</span><span class="marquee__sep"></span>
+          <span>Wispr Flow</span><span class="marquee__sep"></span>
+          <span>Claude Code</span><span class="marquee__sep"></span>
+          <span>MCP</span><span class="marquee__sep"></span>
+          <span>BRD</span><span class="marquee__sep"></span>
+          <span>RTM</span><span class="marquee__sep"></span>
+          <span>Workflow diagrams</span><span class="marquee__sep"></span>
+          <span>Azure DevOps</span><span class="marquee__sep"></span>
+          <span>Stakeholder management</span><span class="marquee__sep"></span>
+          <span>User acceptance testing</span><span class="marquee__sep"></span>
+        </div>
+      </div>
+      <p class="sr-only">Toolkit: Claude, Wispr Flow, Claude Code, MCP, BRD, RTM, workflow diagrams, Azure DevOps, stakeholder management, user acceptance testing.</p>
+    </section>
+
+    <section class="background" id="background" data-stage="5" aria-labelledby="bg-title">
+      <h2 id="bg-title" class="section-title" data-split="chars">Background</h2>
+      <div class="timeline">
+        <div class="timeline__col">
+          <h3 class="timeline__head">Experience</h3>
+          <ol>
+            <li>
+              <span class="mono timeline__date">Mar 2026 · Now</span>
+              <span class="timeline__what">Agentic Business Analyst</span>
+              <span class="timeline__where">Netways · Remote</span>
+            </li>
+            <li>
+              <span class="mono timeline__date">Dec 2025 · Feb 2026</span>
+              <span class="timeline__what">Business Analyst Intern</span>
+              <span class="timeline__where">Netways · moved to a full-time role</span>
+            </li>
+          </ol>
+        </div>
+        <div class="timeline__col">
+          <h3 class="timeline__head">Education</h3>
+          <ol>
+            <li>
+              <span class="mono timeline__date">2023 · 2026</span>
+              <span class="timeline__what">BSc Computer Science</span>
+              <span class="timeline__where">Lebanese International University · Dean's Honor List Spring 2024, Spring 2025, Fall 2025</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Certificates: Anthropic ones link to their public verification pages -->
+      <div class="certs">
+        <h3 class="timeline__head">Certificates</h3>
+        <ol>
+          <li>
+            <span class="mono timeline__date">Oct 2026</span>
+            <span class="timeline__what">Claude 101</span>
+            <a class="timeline__where certs__link" href="https://verify.skilljar.com/c/mvqe4fnhp8hg" target="_blank" rel="noopener" data-cursor-text="Verify">Anthropic · Verify</a>
+          </li>
+          <li>
+            <span class="mono timeline__date">Oct 2026</span>
+            <span class="timeline__what">Claude Platform 101</span>
+            <a class="timeline__where certs__link" href="https://verify.skilljar.com/c/o8objqhrume8" target="_blank" rel="noopener" data-cursor-text="Verify">Anthropic · Verify</a>
+          </li>
+          <li>
+            <span class="mono timeline__date">Oct 2026</span>
+            <span class="timeline__what">AI Fluency for Builders</span>
+            <a class="timeline__where certs__link" href="https://verify.skilljar.com/c/jrgbdgueejd5" target="_blank" rel="noopener" data-cursor-text="Verify">Anthropic · Verify</a>
+          </li>
+          <li>
+            <span class="mono timeline__date">Oct 2026</span>
+            <span class="timeline__what">AI Fluency for Creative Work</span>
+            <a class="timeline__where certs__link" href="https://verify.skilljar.com/c/f65xp7otw48x" target="_blank" rel="noopener" data-cursor-text="Verify">Anthropic · Verify</a>
+          </li>
+          <li>
+            <span class="mono timeline__date">Oct 2026</span>
+            <span class="timeline__what">Deploying Claude Enterprise with Confidence</span>
+            <a class="timeline__where certs__link" href="https://verify.skilljar.com/c/njw5jcwfzk47" target="_blank" rel="noopener" data-cursor-text="Verify">Anthropic · Verify</a>
+          </li>
+          <li>
+            <span class="mono timeline__date">Aug 2026</span>
+            <span class="timeline__what">Claude Code in Action</span>
+            <a class="timeline__where certs__link" href="https://verify.skilljar.com/c/8zaeiaixubob" target="_blank" rel="noopener" data-cursor-text="Verify">Anthropic · Verify</a>
+          </li>
+          <li>
+            <span class="mono timeline__date">Aug 2026</span>
+            <span class="timeline__what">Claude Code 101</span>
+            <a class="timeline__where certs__link" href="https://verify.skilljar.com/c/x6xqjjins7an" target="_blank" rel="noopener" data-cursor-text="Verify">Anthropic · Verify</a>
+          </li>
+          <li>
+            <span class="mono timeline__date">2025</span>
+            <span class="timeline__what">CCNA I</span>
+            <span class="timeline__where">Cisco Networking Academy</span>
+          </li>
+          <li>
+            <span class="mono timeline__date">2025</span>
+            <span class="timeline__what">JavaScript Fundamentals</span>
+            <span class="timeline__where">GreatStack</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- CONTACT · stage 6: portrait again -->
+    <section class="contact" id="contact" data-stage="6" aria-labelledby="contact-title">
+      <div class="contact__copy">
+        <h2 id="contact-title" class="contact__title" data-split="chars">Let's map your next process.</h2>
+        <a class="contact__email" href="mailto:omarhazeem2005@gmail.com" data-email data-cursor-text="Email">omarhazeem2005@gmail.com</a>
+        <a class="contact__phone" href="tel:+96171829730" data-cursor-text="Call"><span class="mono contact__phone-tag">Phone</span>+961 71 829 730</a>
+        <div class="contact__actions">
+          <button class="btn btn--accent" type="button" data-copy data-cursor-text="Copy"><span data-copy-label>Copy email</span></button>
+          <a class="btn btn--ghost" href="assets/cv/Omar-Hazeem-Agentic-Business-Analyst-CV.pdf" download="Omar Hazeem - Agentic Business Analyst CV.pdf" data-cv data-cursor-text="Download">Download CV</a>
+          <a class="btn btn--ghost" href="https://www.linkedin.com/in/omar-hazeem-71991427b/" target="_blank" rel="noopener" data-cursor-text="Open">LinkedIn</a>
+        </div>
+        <p class="contact__status" role="status" aria-live="polite" data-copy-status></p>
+      </div>
+    </section>
+
+    <!-- FOOTER · the photo dissolves back into the field as the page closes -->
+    <footer class="site-footer" data-stage="5">
+      <div class="site-footer__cols">
+        <div>
+          <h2 class="site-footer__h">Navigate</h2>
+          <ul>
+            <li><a class="link" href="#method">Method</a></li>
+            <li><a class="link" href="#transform">As-Is → To-Be</a></li>
+            <li><a class="link" href="#work">Work</a></li>
+            <li><a class="link" href="#deliverables">Deliverables</a></li>
+            <li><a class="link" href="#background">Background</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="site-footer__h">Currently</h2>
+          <p>Agentic Business Analyst at Netways, working remotely with clients in Saudi Arabia.</p>
+        </div>
+      </div>
+      <div class="site-footer__base">
+        <span>© 2026 Omar Hazeem</span>
+        <a class="link" href="#top">Back to top</a>
+      </div>
+    </footer>
+  </main>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script src="assets/vendor/ScrollTrigger.min.js"></script>
+  <script src="assets/vendor/SplitText.min.js"></script>
+  <script src="assets/vendor/lenis.min.js"></script>
+  <script src="assets/vendor/three.min.js"></script>
+  <script src="assets/js/portrait-points.js"></script>
+  <script src="assets/js/thread-data.js"></script>
+  <script src="assets/js/matcap.js"></script>
+  <script src="assets/js/scene.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/transform.js"></script>
+  <script src="assets/js/assistant-config.js"></script>
+  <script src="assets/js/assistant.js"></script>
+</body>
+</html>
