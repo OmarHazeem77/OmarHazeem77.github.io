@@ -940,9 +940,11 @@ html.has-cursor .assistant textarea { cursor: text !important; }
 .msg--bot { align-self: flex-start; background: rgb(var(--fg-rgb) / 0.06); border: 1px solid var(--line); border-bottom-left-radius: 6px; }
 .msg--user { align-self: flex-end; background: var(--accent); color: var(--accent-ink); font-weight: 500; border-bottom-right-radius: 6px; white-space: pre-wrap; }
 .msg p + p, .msg p + ul, .msg ul + p { margin-top: 8px; }
+.msg[lang="ar"], .chip[lang="ar"] { font-family: "Segoe UI", Tahoma, var(--font); }
+.msg[lang="ar"] { font-size: 0.98rem; line-height: 1.75; }
 .msg ul { margin-top: 6px; padding: 0; list-style: none; }
-.msg li { position: relative; margin-top: 5px; padding-left: 16px; }
-.msg li::before { content: ""; position: absolute; left: 2px; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-text); }
+.msg li { position: relative; margin-top: 5px; padding-inline-start: 16px; }
+.msg li::before { content: ""; position: absolute; inset-inline-start: 2px; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-text); }
 .msg a { color: var(--accent-text); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 .msg--typing { display: inline-flex; gap: 5px; padding: 14px 16px; }
 .msg--typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: assistant-dot 1s ease-in-out infinite; }

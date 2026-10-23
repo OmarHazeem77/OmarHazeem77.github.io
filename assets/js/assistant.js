@@ -135,7 +135,6 @@
       a: "Thanks for stopping by! If you'd like to talk to Omar, he's at {email}." }
   };
   var FALLBACK = "I'm not sure about that one. I only answer from Omar's verified profile, so I won't guess. You could try one of these, or ask Omar directly at {email}.";
-  var ARABIC = "أهلاً وسهلاً! أجيب حالياً باللغة الإنجليزية فقط. جرّب أن تكتب سؤالك بالإنجليزية، أو راسل عمر مباشرة على {email}";
   var CHIPS = {
     about: "Who is Omar?", role: "What does Omar do?", netways: "Tell me about Netways", current: "What is Omar working on now?",
     previous: "His previous project", projects: "What has he worked on?", method: "How does he work?", ai: "How does Omar use AI?", site: "How was this site built?",
@@ -147,6 +146,144 @@
   var START = ["role", "contact", "ai", "current", "cv"];   // direct questions offered when the chat opens
   var byId = {};
   INTENTS.forEach(function (it) { byId[it.id] = it; });
+
+  /* ---------- Arabic: keywords, phrases and the same approved answers ---------- */
+  // Keywords are stems: a word in the question matches when it contains one (so شهادات and الشهادات both match شهاد).
+  // Written in plain Arabic; they are normalised (أ/إ/آ to ا, ة to ه, ى to ي) when the page loads.
+  var AR = {
+    about: { k: { "نبذه": 3, "عرفني": 3, "تعريف": 2, "ملخص": 2 },
+      p: ["من هو", "مين هو", "مين عمر", "من عمر", "عن عمر", "احكيلي عن", "اخبرني عن", "حدثني عن"],
+      a: "عمر محلل أعمال يعتمد على وكلاء الذكاء الاصطناعي (Agentic Business Analyst) في Netways، يعمل عن بُعد من لبنان مع عملاء في المملكة العربية السعودية. يقود جلسات استكشاف احتياجات العملاء، ويحوّلها إلى وثائق BRD ومخططات سير عمل وحلول عملية، ويستخدم الذكاء الاصطناعي في كل خطوة: Wispr Flow لتوثيق الاجتماعات، وClaude لصياغة المستندات، وClaude Code مع MCP لبناء النماذج الأولية. يعمل حالياً على مشروع لدى جهة تنظيمية لسوق المال في السعودية." },
+    role: { k: { "وظيف": 3, "يشتغل": 3, "بيشتغل": 3, "شغله": 3, "مهنت": 3, "منصب": 3, "محلل": 3, "مسؤوليات": 3, "مهام": 3, "يعمل": 2, "عمله": 2, "يفعل": 2 },
+      p: ["ماذا يعمل", "شو بيشتغل", "شو يشتغل", "شو بيعمل", "ماذا يفعل", "محلل اعمال", "طبيعه عمله"],
+      a: "عمر محلل أعمال (Agentic Business Analyst) في Netways. يقود ورش جمع المتطلبات مع العملاء، ويكتب وثائق متطلبات الأعمال (BRD) ومصفوفات التتبّع ومحاضر الاجتماعات، ويصمّم مخططات سير العمل، ويبني نماذج أولية للحلول باستخدام Claude Code، ويعمل جنباً إلى جنب مع المطورين في Azure DevOps حتى تُختبر كل ميزة وفق معايير القبول." },
+    netways: { k: { "نتوايز": 4, "نتويز": 4, "شركه": 2, "الشركه": 2 },
+      p: ["اين يعمل", "وين بيشتغل", "وين يشتغل", "لمن يعمل", "اي شركه", "نت وايز"],
+      a: "Netways شركة استشارات تقنية تخدم الحكومات والمؤسسات في الشرق الأوسط، وهي شريك لـ Microsoft في تطبيقات الأعمال. انضم إليها عمر متدرّباً في تحليل الأعمال في ديسمبر 2025، ويعمل فيها محلل أعمال بدوام كامل منذ مارس 2026." },
+    current: { k: { "حالي": 3, "حاليا": 5, "الان": 2, "هلق": 2, "هيئه": 2, "سوق": 2, "تنظيمي": 2, "رقابي": 2 },
+      p: ["يعمل الان", "يعمل حاليا", "يشتغل حاليا", "يشتغل هلق", "بيشتغل هلق", "المشروع الحالي", "سوق المال", "راس المال"],
+      a: "يعمل عمر حالياً، من خلال Netways، على مشروع لدى جهة تنظيمية لسوق المال في المملكة العربية السعودية. يدير ورش استكشاف مع فرق الجهة، ويوثّق طريقة سير العمل الحالية (As-Is)، ويقترح تحسينات ومسارات عمل مستقبلية (To-Be) تقلّل الجهد اليدوي. أسماء العملاء لا تُنشر علناً." },
+    previous: { k: { "سابق": 3, "بتروكيم": 4, "قبل": 1 },
+      p: ["المشروع السابق", "اخر مشروع", "قبل هيك"],
+      a: "قبل مشروعه الحالي، عمل عمر ضمن مشروع لـ Netways لدى عمليات شركة بتروكيماويات في المملكة العربية السعودية، وشمل ذلك جلسات مع العميل وتوثيق المتطلبات وتصميم سير العمل. أسماء العملاء والتفاصيل الدقيقة ليست علنية، لذا لمعرفة المزيد يُفضَّل سؤال عمر مباشرة على {email}." },
+    projects: { k: { "مشاريع": 3, "مشروع": 2, "عملاء": 3, "عملائ": 3, "عميل": 2, "اعمال": 1 },
+      p: ["عمل عليها", "اشتغل عليها", "مع من عمل", "مع مين اشتغل"],
+      a: "حتى الآن مشروعان لعملاء، كلاهما من خلال Netways في السعودية، إضافةً إلى مشروع خاص به:\n- جهة تنظيمية لسوق المال (حالياً): استكشاف الوضع الحالي (As-Is)، ثم التحسينات ومسارات العمل المستقبلية (To-Be).\n- شركة بتروكيماويات (سابقاً): جلسات مع العميل وتوثيق المتطلبات وتصميم سير العمل.\n- هذا الموقع: بناه بالكامل باستخدام Claude Code، مع مجسّمات ثلاثية الأبعاد صُمّمت في Blender عبر MCP." },
+    method: { k: { "منهجي": 3, "طريقه": 2, "طريقت": 2, "اسلوب": 3, "خطوات": 3, "مراحل": 2, "اتمت": 3, "يدوي": 2, "استكشاف": 2, "مقابلات": 2 },
+      p: ["كيف يعمل", "كيف بيشتغل", "كيف يشتغل", "طريقه عمله", "الوضع الحالي", "الوضع المستقبلي", "جمع المتطلبات"],
+      a: "يعمل عمر على أربع خطوات:\n- الاستماع: يقود جلسات الاستكشاف مع الأشخاص الذين يؤدّون العمل فعلياً، ويوثّق Wispr Flow كل جلسة.\n- رسم الوضع الحالي (As-Is): كل تسليم وموافقة وإعادة تدقيق، ويصيغها مع Claude في محاضر ومتطلبات.\n- تصميم الوضع المستقبلي (To-Be): مسارات عمل أبسط، مع نماذج أولية بـ Claude Code ليتفاعل أصحاب المصلحة مع شيء حقيقي.\n- الأتمتة: تُؤتمت الخطوات التي لا تحتاج إلى حُكم بشري، ثم يكتب قصص المستخدم في Azure DevOps ويختبر حتى الإطلاق." },
+    ai: { k: { "ذكاء": 4, "اصطناعي": 4, "وكيل": 3, "وكلاء": 3, "كلود": 4, "ويسبر": 4, "نماذج اللغه": 3, "شات جي بي تي": 3 },
+      p: ["الذكاء الاصطناعي", "ذكاء اصطناعي"],
+      a: "يعمل عمر كمحلل أعمال يعتمد على وكلاء الذكاء الاصطناعي، والذكاء الاصطناعي حاضر في كل مرحلة:\n- التوثيق: يسجّل Wispr Flow كل جلسة مع العميل ويتيح له إملاء ملاحظاته أثناءها.\n- الصياغة: يحوّل Claude هذا السجل إلى مسودات أولى للمحاضر وأقسام BRD وصفوف مصفوفة التتبّع، ويراجع عمر كل سطر ويتحمّل مسؤوليته.\n- النماذج الأولية: يبني Claude Code مع MCP نماذج عملية ليتفاعل معها العميل قبل بدء التطوير.\n- التسليم: قصص المستخدم ومعايير القبول وحالات الاختبار في Azure DevOps.\nيتولّى الذكاء الاصطناعي الصياغة، أما الإصغاء والحُكم والعلاقة مع العميل فتبقى مسؤوليته." },
+    deliverables: { k: { "مخرجات": 4, "تسليمات": 4, "يسلم": 3, "مستندات": 3, "وثائق": 3, "ينتج": 2 },
+      p: ["ماذا يسلم", "شو بيسلم", "ما الذي يسلمه"],
+      a: "في المشروع النموذجي يُعدّ عمر:\n- وثيقة متطلبات الأعمال (BRD)\n- مصفوفة تتبّع المتطلبات (RTM)\n- محاضر اجتماعات بعد كل جلسة مع العميل\n- مخططات سير العمل للوضعين الحالي (As-Is) والمستقبلي (To-Be)\n- حالات الاختبار في Azure DevOps\nاسألني عن أيٍّ منها لمزيد من التفاصيل." },
+    brd: { k: {}, p: ["متطلبات الاعمال", "وثيقه متطلبات", "وثيقه المتطلبات"],
+      a: "وثيقة BRD هي وثيقة متطلبات الأعمال: النطاق المتفق عليه وقواعد العمل والمتطلبات. يكتبها عمر بحيث يعتمدها العميل ويبني عليها فريق التطوير." },
+    rtm: { k: { "تتبع": 4, "مصفوف": 3 }, p: ["مصفوفه تتبع"],
+      a: "مصفوفة تتبّع المتطلبات (RTM) تربط كل متطلب بتصميمه واختباره، فلا يضيع شيء بين ورشة العمل والإطلاق. يحتفظ بها عمر إلى جانب وثيقة BRD." },
+    mom: { k: { "محاضر": 4, "محضر": 4 }, p: ["محاضر الاجتماعات", "محضر اجتماع", "ملاحظات الاجتماع"],
+      a: "يوثّق Wispr Flow كل جلسة مع العميل، ويساعد Claude عمر على صياغتها في محاضر اجتماعات: القرارات والمسؤولون وبنود العمل. يراجع كل سطر قبل إرساله، ما يحافظ على النطاق المتفق عليه ويُبقي الجميع على اطّلاع." },
+    workflow: { k: { "مخطط": 3, "تدفق": 3, "رسوم": 2, "خرائط": 2 }, p: ["سير العمل", "خرائط العمليات", "مخططات سير"],
+      a: "يصمّم عمر مخططات سير العمل للوضع الحالي (As-Is، أي كيف يجري العمل اليوم) وللوضع المستقبلي (To-Be، أي العملية المقترحة الأبسط). تساعد هذه المخططات أصحاب المصلحة والمطورين على الاتفاق على طريقة سير العملية." },
+    testing: { k: { "اختبار": 4, "فحص": 3, "جوده": 2, "مطورين": 3, "المطور": 2, "ازور": 3 },
+      p: ["حالات الاختبار", "معايير القبول", "مع المطورين"],
+      a: "يبقى عمر مشاركاً خلال مرحلة البناء: يدير المتطلبات وقائمة المهام (Backlog) في Azure DevOps، ثم يكتب حالات الاختبار وينفّذها للتحقق من كل ميزة وفق معايير القبول قبل إطلاقها." },
+    skills: { k: { "مهارات": 4, "مهاره": 4, "قدرات": 3, "اختصاص": 3, "تخصص": 2 },
+      p: ["نقاط القوه", "اصحاب المصلحه", "شو بيعرف", "ماذا يجيد", "بماذا يتميز"],
+      a: "مهارات عمر الأساسية: تحليل الأعمال، وجمع المتطلبات، وتصميم الحلول، ووكلاء الذكاء الاصطناعي، وإدارة أصحاب المصلحة. وإلى جانبها: وثائق BRD، وتتبّع المتطلبات، وتحليل الفجوات، وقصص المستخدم، وتصميم العمليات، واختبار قبول المستخدم، وإدارة ورش العمل، مدعومة بشهادة في علوم الحاسوب." },
+    tools: { k: { "ادوات": 4, "اداه": 4, "برامج": 3, "برنامج": 2, "يستخدم": 2, "بيستعمل": 2 },
+      p: ["هل يعرف", "هل يستخدم", "بيعرف يستعمل", "اي ادوات", "ما الادوات"],
+      a: "أدوات عمر الأساسية: Claude وClaude Code وMCP لصياغة المستندات وبناء النماذج الأولية، وWispr Flow لتوثيق الاجتماعات، وAzure DevOps للمتطلبات وقوائم المهام وحالات الاختبار. للسؤال عن أي أداة أخرى، يمكنك مراسلة عمر مباشرة على {email}." },
+    education: { k: { "تعليم": 4, "دراس": 4, "درس": 3, "جامع": 4, "بكالوريوس": 4, "تخرج": 4, "علوم": 2, "حاسوب": 2, "كمبيوتر": 2, "عميد": 3, "معدل": 2 },
+      p: ["علوم الحاسوب", "لائحه الشرف", "قائمه الشرف", "الجامعه اللبنانيه الدوليه", "وين درس", "اين درس"],
+      a: "درس عمر بكالوريوس علوم الحاسوب في الجامعة اللبنانية الدولية (LIU) من 2023 إلى 2026، ودخل لائحة الشرف (Dean's Honor List) ثلاث مرات: ربيع 2024، وربيع 2025، وخريف 2025." },
+    certs: { k: { "شهاد": 4, "دورات": 4, "كورس": 4, "اعتماد": 3, "معتمد": 3, "انثروبيك": 4, "سيسكو": 4 },
+      p: [],
+      a: "يحمل عمر سبع شهادات من Anthropic:\n- Claude 101 وClaude Platform 101 وAI Fluency for Builders وAI Fluency for Creative Work وDeploying Claude Enterprise with Confidence (أكتوبر 2026)\n- Claude Code 101 وClaude Code in Action (أغسطس 2026)\nيمكن التحقق من كل منها في قسم Background في هذه الصفحة. ويحمل أيضاً Cisco CCNA I وJavaScript Fundamentals (2025)." },
+    experience: { k: { "خبره": 4, "خبرت": 4, "سنوات": 3, "سنين": 3, "مسيره": 3, "متدرب": 4, "تدريب": 3, "بدا": 2, "قديش": 1, "منذ": 1 },
+      p: ["كم سنه", "قديش صرله", "متي بدا", "منذ متي"],
+      a: "انضم عمر إلى Netways متدرّباً في تحليل الأعمال في ديسمبر 2025، ثم رُقّي إلى محلل أعمال بدوام كامل في مارس 2026. ومنذ ذلك الحين عمل على مشاريع لعملاء في السعودية: شركة بتروكيماويات، وحالياً جهة تنظيمية لسوق المال." },
+    location: { k: { "يقيم": 4, "مقيم": 4, "ساكن": 4, "يسكن": 4, "عايش": 3, "يعيش": 3, "لبنان": 4, "بيروت": 4, "بلد": 3, "مدين": 3, "سفر": 3, "انتقال": 3, "موقع": 1, "وين": 1, "اين": 1 },
+      p: ["عن بعد", "من وين", "من اين"],
+      a: "يقيم عمر في لبنان ويعمل عن بُعد مع عملاء في المملكة العربية السعودية. أما الانتقال أو السفر فمن الأفضل سؤاله مباشرة على {email}." },
+    contact: { k: { "تواصل": 4, "اتواصل": 4, "اتصال": 4, "اتصل": 4, "ايميل": 4, "بريد": 4, "رقم": 3, "هاتف": 4, "تلفون": 4, "موبايل": 4, "جوال": 4, "واتساب": 4, "لينكد": 4, "راسل": 3, "مراسل": 3 },
+      p: ["كيف اوصل", "كيف بقدر احكي", "كيف احكي معه", "كيف احكي مع"],
+      a: "أسرع طريقة هي البريد الإلكتروني: {email}. يمكنك أيضاً الاتصال به على {phone} أو التواصل معه على {linkedin}. سيسعده أن يسمع منك." },
+    cv: { k: { "سيره": 5, "سيرت": 5, "ذاتي": 2, "تحميل": 3, "تنزيل": 3, "نزل": 2 },
+      p: ["السيره الذاتيه", "سي في"],
+      a: "يمكنك تحميل سيرة عمر الذاتية من هنا: {cv}. تغطي خبرته في Netways ومهاراته وتعليمه وجميع شهاداته، بما فيها الشهادات السبع من Anthropic." },
+    availability: { k: { "متاح": 4, "متوفر": 4, "توظيف": 4, "نوظف": 2, "راتب": 4, "اجر": 3, "سعر": 3, "تكلف": 3, "فرص": 3, "فرصه": 3, "شاغر": 3 },
+      p: ["عمل حر", "فريلانس", "وظيفه جديده", "عرض عمل", "منفتح على"],
+      a: "هذا سؤال لعمر نفسه، فليست لديّ معلومات عن توفّره أو أجوره أو الفرص الجديدة. راسله على {email} وسيردّ عليك." },
+    languages: { k: { "لغات": 4, "لغه": 4, "عربي": 3, "انجليزي": 3, "انكليزي": 3, "فرنسي": 3, "يتكلم": 3, "بيحكي": 3, "يتحدث": 2 },
+      p: [],
+      a: "يذكر ملفه على LinkedIn اللغة الإنجليزية. أما اللغات الأخرى فمن الأفضل سؤال عمر مباشرة على {email}." },
+    personal: { k: { "عمره": 4, "هوايات": 4, "هوايه": 4, "متزوج": 4, "زوج": 3, "عائل": 3, "عيلت": 3, "ديان": 4, "جنسي": 3, "فراغ": 3, "رياض": 3 },
+      p: ["كم عمر", "قديش عمر", "عيد ميلاد", "خارج العمل"],
+      a: "أعرف فقط الجانب المهني من عمر: عمله ومشاريعه ومهاراته وتعليمه. لأي شيء آخر، يمكنك مراسلته على {email}." },
+    why: { k: { "لماذا": 2, "ليش": 2, "ليه": 2, "يميز": 3, "مميز": 3, "قيمه": 2, "نوظف": 2 },
+      p: ["لماذا نوظف", "ليش نوظف", "ما الذي يميز", "شو بيميز", "لماذا اختار", "ليش اختار"],
+      a: "باختصار: يستطيع أن يقود الحوار مع العميل، وأن يساعد في بناء ما ينتج عنه. يطرح الأسئلة التفصيلية التي تكشف كيف تسير العملية فعلاً، ويستخدم الذكاء الاصطناعي ليحوّلها بسرعة إلى متطلبات واضحة ونماذج أولية عملية، ويبقى مع المطورين حتى الاختبار. وهذا بالضبط ما يفعله اليوم في مشروع لدى جهة تنظيمية لسوق المال في السعودية." },
+    site: { k: { "موقع": 2, "تصميم": 2, "انيميشن": 3, "بلندر": 4, "ثلاثي": 3 },
+      p: ["هذا الموقع", "بناء الموقع", "مين عمل الموقع", "من صمم", "كيف تم بناء", "كيف بني"],
+      a: "بنى عمر هذا الموقع بالكامل باستخدام Claude Code. تعتمد المؤثرات ثلاثية الأبعاد وحركة التمرير على Three.js وGSAP، أما الخيط المعدني ومجسّمات المخرجات فصُمّمت ورُسمت في Blender عبر MCP." },
+    bot: { k: { "روبوت": 3, "بوت": 3, "مساعد": 3, "انسان": 2, "حقيقي": 2 },
+      p: ["من انت", "مين انت", "ما انت", "شو انت", "هل انت", "كيف تعرف"],
+      a: "أنا المساعد في موقع عمر. أجيب من ملف معتمد وافق عليه عمر، فإذا لم أكن أعرف شيئاً سأقول ذلك بدلاً من التخمين." }
+  };
+  var SMALL_AR = {   // checked in this order: "مع السلامة" must not be read as a greeting
+    bye: { k: ["مع السلامه", "باي", "وداعا", "الى اللقاء", "بخاطرك"],
+      a: "شكراً لزيارتك! إذا أردت التواصل مع عمر، راسله على {email}" },
+    thanks: { k: ["شكرا", "مشكور", "يعطيك", "تسلم", "ممتاز", "رائع", "حلو", "تمام", "اوك", "جميل"],
+      a: "عفواً! هل تودّ معرفة شيء آخر عن عمر؟" },
+    greeting: { k: ["مرحبا", "اهلا", "السلام", "سلام", "هاي", "هلا", "صباح", "مساء", "مرحبتين"],
+      a: "أهلاً وسهلاً! أنا مساعد عمر. اسألني عن عمله أو مشاريعه أو طريقة عمله أو كيف تتواصل معه." }
+  };
+  var FALLBACK_AR = "لست متأكداً من هذه. أجيب فقط من ملف عمر المعتمد، لذلك لن أخمّن. جرّب أحد هذه الأسئلة، أو اسأل عمر مباشرة على {email}";
+  var CHIPS_AR = {
+    about: "من هو عمر؟", role: "ماذا يعمل عمر؟", netways: "حدّثني عن Netways", current: "على ماذا يعمل عمر حالياً؟",
+    previous: "مشروعه السابق", projects: "ما المشاريع التي عمل عليها؟", method: "كيف يعمل عمر؟", ai: "كيف يستخدم عمر الذكاء الاصطناعي؟", site: "كيف بُني هذا الموقع؟",
+    deliverables: "ما الذي يسلّمه؟", tools: "ما الأدوات التي يستخدمها؟", brd: "ما هي وثيقة BRD؟", rtm: "ما هي مصفوفة RTM؟", mom: "محاضر الاجتماعات؟",
+    testing: "هل يقوم بالاختبار؟", skills: "ما هي مهاراته؟", education: "أين درس؟",
+    certs: "ما الشهادات التي يحملها عمر؟", experience: "منذ متى يعمل محلّلاً؟", location: "أين يقيم؟",
+    contact: "كيف أتواصل مع عمر؟", cv: "هل يمكنني تحميل سيرة عمر الذاتية؟", availability: "هل هو متاح لفرص جديدة؟", why: "لماذا العمل مع عمر؟"
+  };
+  function normAr(s) {
+    return (" " + s.toLowerCase()
+      .replace(/[ً-ْـ]/g, "")   // short vowels and tatweel
+      .replace(/[أإآ]/g, "ا").replace(/ة/g, "ه").replace(/ى/g, "ي")
+      .replace(/[^a-z0-9ء-ي]+/g, " ") + " ").replace(/\s+/g, " ");
+  }
+  INTENTS.forEach(function (it) {
+    var d = AR[it.id];
+    it.ka = {};
+    for (var w in d.k) it.ka[normAr(w).trim()] = d.k[w];
+    it.pa = d.p.map(function (ph) { return normAr(ph).trim(); });
+    it.aa = d.a;
+  });
+  for (var sk in SMALL_AR) SMALL_AR[sk].k = SMALL_AR[sk].k.map(function (w) { return normAr(w).trim(); });
+  function isArabic(text) { return /[؀-ۿ]/.test(text); }
+  function classifyAr(text) {
+    var n = normAr(text);
+    var toks = n.trim().split(" ").filter(Boolean);
+    var scored = INTENTS.map(function (it) {
+      var s = 0;
+      toks.forEach(function (t) {
+        var best = 0, w;
+        for (w in it.ka) if (t === w || (w.length >= 3 && t.indexOf(w) !== -1)) best = Math.max(best, it.ka[w]);
+        for (w in it.k) if (t === w) best = Math.max(best, it.k[w]);   // English terms inside an Arabic question (BRD, Claude, CV…)
+        s += best;
+      });
+      it.pa.forEach(function (ph) { if (n.indexOf(ph) !== -1) s += 4; });
+      return { it: it, s: s };
+    }).sort(function (a, b) { return b.s - a.s; });
+    // small talk only when the message is short and has no real question in it
+    if (toks.length <= 4 && scored[0].s < 3) {
+      for (var key in SMALL_AR) if (SMALL_AR[key].k.some(function (w) { return n.indexOf(w) !== -1; })) return { small: key };
+    }
+    return { top: scored[0], second: scored[1] };
+  }
 
   /* ---------- Matching ---------- */
   var STOP = { the: 1, a: 1, an: 1, is: 1, are: 1, was: 1, were: 1, do: 1, does: 1, did: 1, of: 1, to: 1, in: 1, on: 1, at: 1, for: 1, and: 1, or: 1, me: 1, i: 1, you: 1, he: 1, his: 1, him: 1, omar: 1, omars: 1, hazeem: 1, can: 1, could: 1, would: 1, please: 1, tell: 1, what: 1, whats: 1, any: 1, there: 1, it: 1, this: 1, that: 1, with: 1, has: 1, have: 1, be: 1, my: 1, your: 1, so: 1, about: 0 };
@@ -199,24 +336,28 @@
   }
 
   var lastIntent = null;
-  function localAnswer(text) {
-    if (/[؀-ۿ]/.test(text)) return { text: ARABIC, chips: START, rtl: true };
-    var n = norm(text);
-    if (lastIntent && /^ (tell me )?(more|and|go on|continue|details|elaborate|explain more|more please|what else) $/.test(n)) {
+  function localAnswer(text, forced) {
+    var ar = isArabic(text);
+    function say(it) { return ar ? it.aa : it.a; }
+    if (forced && byId[forced]) { lastIntent = forced; return { text: say(byId[forced]), chips: byId[forced].f, rtl: ar }; }
+    var n = ar ? normAr(text) : norm(text);
+    var more = ar ? /^ (المزيد|اكثر|كمان|تابع|اكمل|تفاصيل|وبعدين|احكي اكثر|اخبرني المزيد|قل لي المزيد) $/
+                  : /^ (tell me )?(more|and|go on|continue|details|elaborate|explain more|more please|what else) $/;
+    if (lastIntent && more.test(n)) {
       var nxt = byId[lastIntent].f[0];
       lastIntent = nxt;
-      return { text: byId[nxt].a, chips: byId[nxt].f };
+      return { text: say(byId[nxt]), chips: byId[nxt].f, rtl: ar };
     }
-    var c = classify(text);
-    if (c.small) return { text: SMALL[c.small].a, chips: START };
-    if (!c.top || c.top.s < 1.8) return { text: FALLBACK, chips: START, miss: true };
+    var c = ar ? classifyAr(text) : classify(text);
+    if (c.small) return { text: (ar ? SMALL_AR : SMALL)[c.small].a, chips: START, rtl: ar };
+    if (!c.top || c.top.s < 1.8) return { text: ar ? FALLBACK_AR : FALLBACK, chips: START, miss: true, rtl: ar };
     var parts = [c.top.it];
     // two clearly asked things: answer both
     if (c.second && c.second.s >= 3 && c.second.s >= c.top.s * 0.8) parts.push(c.second.it);
     lastIntent = parts[parts.length - 1].id;
     var chips = [];
     parts.forEach(function (p) { p.f.forEach(function (f) { if (chips.indexOf(f) === -1 && parts.every(function (q) { return q.id !== f; })) chips.push(f); }); });
-    return { text: parts.map(function (p) { return p.a; }).join("\n\n"), chips: chips.slice(0, 3) };
+    return { text: parts.map(say).join("\n\n"), chips: chips.slice(0, 3), rtl: ar };
   }
 
   /* ---------- UI ---------- */
@@ -343,7 +484,7 @@
   var label = el("label", "sr-only", "Your question");
   label.setAttribute("for", "assistant-input");
   var input = el("textarea", "assistant__input");
-  input.id = "assistant-input"; input.rows = 1; input.maxLength = 600;
+  input.id = "assistant-input"; input.rows = 1; input.maxLength = 600; input.dir = "auto";
   input.placeholder = "Ask anything about Omar…";
   var sendBtn = el("button", "assistant__send");
   sendBtn.type = "submit"; sendBtn.setAttribute("aria-label", "Send");
@@ -370,33 +511,34 @@
   // Render answer text: "\n- " lines become a list, {email} and {linkedin} become links. Never uses innerHTML.
   function renderInto(node, text) {
     node.textContent = "";
+    var ar = node.lang === "ar";
     text.split("\n\n").forEach(function (para) {
       var lines = para.split("\n");
       var p = el("p"), list = null;
       lines.forEach(function (line) {
         if (/^- /.test(line)) {
           if (!list) { list = el("ul"); }
-          var li = el("li"); appendRich(li, line.slice(2)); list.appendChild(li);
+          var li = el("li"); appendRich(li, line.slice(2), ar); list.appendChild(li);
         } else {
           if (p.childNodes.length) p.appendChild(document.createTextNode(" "));
-          appendRich(p, line);
+          appendRich(p, line, ar);
         }
       });
       if (p.childNodes.length) node.appendChild(p);
       if (list) node.appendChild(list);
     });
   }
-  function appendRich(parent, text) {
+  function appendRich(parent, text, ar) {
     text.split(/(\{email\}|\{linkedin\}|\{phone\}|\{cv\})/).forEach(function (bit) {
-      if (bit === "{email}") { var a = el("a", null, EMAIL); a.href = "mailto:" + EMAIL; parent.appendChild(a); }
+      if (bit === "{email}") { var a = el("a", null, EMAIL); a.href = "mailto:" + EMAIL; a.dir = "ltr"; parent.appendChild(a); }
       else if (bit === "{linkedin}") { var l = el("a", null, "LinkedIn"); l.href = LINKEDIN; l.target = "_blank"; l.rel = "noopener"; parent.appendChild(l); }
-      else if (bit === "{phone}") { var t = el("a", null, PHONE); t.href = "tel:" + PHONE.replace(/\s/g, ""); parent.appendChild(t); }
-      else if (bit === "{cv}") { var c = el("a", null, "Download CV (PDF)"); c.href = CV; c.setAttribute("download", "Omar Hazeem - Agentic Business Analyst CV.pdf"); c.setAttribute("data-cv", ""); parent.appendChild(c); }
+      else if (bit === "{phone}") { var t = el("a", null, PHONE); t.href = "tel:" + PHONE.replace(/\s/g, ""); t.dir = "ltr"; parent.appendChild(t); }
+      else if (bit === "{cv}") { var c = el("a", null, ar ? "تحميل السيرة الذاتية (PDF)" : "Download CV (PDF)"); c.href = CV; c.setAttribute("download", "Omar Hazeem - Agentic Business Analyst CV.pdf"); c.setAttribute("data-cv", ""); parent.appendChild(c); }
       else if (bit) parent.appendChild(document.createTextNode(bit));
     });
   }
   function addUser(text) {
-    var m = el("div", "msg msg--user"); m.textContent = text; log.appendChild(m); scroll();
+    var m = el("div", "msg msg--user"); m.dir = "auto"; m.textContent = text; log.appendChild(m); scroll();
   }
   function addBot() { var m = el("div", "msg msg--bot"); log.appendChild(m); scroll(); return m; }
   function scroll() { log.scrollTop = log.scrollHeight; }
@@ -416,13 +558,14 @@
       if (i < text.length) setTimeout(tick, 16); else { renderInto(node, text); done(); }
     })();
   }
-  function setChips(ids) {
+  function setChips(ids, ar) {
     chipsRow.textContent = "";
     ids.forEach(function (id) {
-      if (!CHIPS[id]) return;
-      var b = el("button", "chip", CHIPS[id]); b.type = "button";
+      var text = (ar ? CHIPS_AR : CHIPS)[id];
+      if (!text) return;
+      var b = el("button", "chip", text); b.type = "button"; b.dir = "auto"; if (ar) b.lang = "ar";
       b.addEventListener("click", function () {
-        ask(CHIPS[id]);
+        ask(text, id);
         // the chip is removed on click, so keep keyboard focus in the panel (not on phones: no surprise keyboard)
         if (!window.matchMedia("(pointer: coarse)").matches) input.focus({ preventScroll: true }); else panel.focus({ preventScroll: true });
       });
@@ -431,15 +574,15 @@
     scroll();
   }
 
-  function answerLocally(q, then) {
-    var r = localAnswer(q);
+  function answerLocally(q, then, forced) {
+    var r = localAnswer(q, forced);
     setTimeout(function () {
       typing(false);
       var bubble = addBot();
       if (r.rtl) { bubble.dir = "rtl"; bubble.lang = "ar"; }
       reveal(bubble, r.text, function () {
         history.push({ role: "assistant", content: r.text.replace(/\{email\}/g, EMAIL).replace(/\{linkedin\}/g, "LinkedIn").replace(/\{phone\}/g, PHONE).replace(/\{cv\}/g, "the Download CV button") }); save();
-        setChips(r.chips || START); then();
+        setChips(r.chips || START, r.rtl); then();
       });
     }, motionOn() ? 420 : 0);
   }
@@ -465,7 +608,7 @@
             try {
               var ev = JSON.parse(line);
               if (ev.t) {
-                if (!bubble) { typing(false); bubble = addBot(); }
+                if (!bubble) { typing(false); bubble = addBot(); bubble.dir = "auto"; }
                 text += ev.t; bubble.textContent = text; scroll();
               } else if (ev.error) { failed = true; }
             } catch (e) {}
@@ -480,11 +623,11 @@
       typing(false);
       renderInto(bubble, text);
       history.push({ role: "assistant", content: text }); save();
-      setChips(START); then();
+      setChips(START, isArabic(q)); then();
     });
   }
 
-  function ask(q) {
+  function ask(q, forced) {
     q = (q || "").trim();
     if (!q || busy) return;
     busy = true; sendBtn.disabled = true;
@@ -493,7 +636,7 @@
     chipsRow.textContent = "";
     typing(true);
     var done = function () { busy = false; sendBtn.disabled = false; };
-    if (endpoint) answerWithAI(q, done); else answerLocally(q, done);
+    if (endpoint) answerWithAI(q, done); else answerLocally(q, done, forced);
   }
 
   form.addEventListener("submit", function (e) { e.preventDefault(); var q = input.value; input.value = ""; autosize(); ask(q); });
@@ -575,7 +718,7 @@
         setChips(START);
       } else {
         var hi = addBot();
-        renderInto(hi, "Hi! \uD83D\uDC4B I'm Omar's AI assistant. Pick a question below, or type your own.");
+        renderInto(hi, "Hi! \uD83D\uDC4B I'm Omar's AI assistant. Pick a question below, or type your own in English or Arabic.");
         setChips(START);
       }
     }
