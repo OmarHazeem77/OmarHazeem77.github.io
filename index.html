@@ -55,7 +55,8 @@
       if (m) m.setAttribute("content", t === "light" ? "#F2F3EF" : "#07090D");
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/style.css?v=1023c">
+  <link rel="stylesheet" href="assets/css/style.css?v=1024m">
+  <link rel="stylesheet" href="assets/css/lanes.css?v=1024m">
 </head>
 <body>
   <a class="skip" href="#work">Skip to selected work</a>
@@ -88,13 +89,14 @@
   <header class="nav" data-nav>
     <a class="nav__mark" href="#top">Omar Hazeem</a>
     <nav class="nav__links" aria-label="Primary">
-      <a href="#method" data-nav-link="method">Method</a>
-      <a href="#transform" data-nav-link="transform">As-Is → To-Be</a>
-      <a href="#work" data-nav-link="work">Work</a>
-      <a href="#deliverables" data-nav-link="deliverables">Deliverables</a>
-      <a href="#background" data-nav-link="background">Background</a>
+      <a href="#method" data-nav-link="method"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 11c2-6 4 2 6-3s3-2 6-4"/></svg><span>Method</span></a>
+      <a href="#process" data-nav-link="process"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="2.5"/></svg><span>Process</span></a>
+      <a href="#work" data-nav-link="work"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><circle cx="8" cy="8" r="4.6"/><path d="M8 5.4V8l1.8 1.2"/></svg><span>Engagements</span></a>
+      <a href="#deliverables" data-nav-link="deliverables"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 1.5h6l3 3v10h-9z"/><path d="M9.5 1.5v3h3"/></svg><span>Deliverables</span></a>
+      <a href="#background" data-nav-link="background"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="11" rx="1"/><path d="M4.5 2.5v11M4.5 8h10"/></svg><span>Background</span></a>
     </nav>
     <div class="nav__right">
+      <span class="nav__zoom mono" aria-hidden="true" data-readout>0%</span>
       <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode" data-cursor-text="Theme">
         <svg class="theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
         <svg class="theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8Z"/></svg>
@@ -103,7 +105,7 @@
         <span class="motion-toggle__dot" aria-hidden="true"></span>
         <span data-motion-label>Motion on</span>
       </button>
-      <a class="btn btn--light btn--sm" href="#contact">Get in touch</a>
+      <a class="btn btn--accent btn--sm" href="#contact">Get in touch</a>
     </div>
   </header>
 
@@ -190,144 +192,238 @@
       <div class="story__step" data-stage="4" aria-hidden="true"></div>
     </section>
 
-    <!-- AS-IS → TO-BE · an example process is mapped, scanned by an AI agent and rebuilt (assets/js/transform.js) -->
-    <section class="tf" id="transform" data-stage="5" data-transform aria-labelledby="tf-title">
-      <div class="tf__pin" data-tf-pin>
-        <div class="tf__head">
-          <h2 id="tf-title" class="section-title" data-split="chars">As-Is to To-Be</h2>
-          <p class="tf__lede">A process as I'd find it in discovery, then rebuilt. An AI agent flags the waste, and the flow is redesigned around one human decision.</p>
-        </div>
-
-        <div class="tf__panel">
-          <div class="tf__bar">
-            <span class="mono tf__file"><span class="tf__file-dot" aria-hidden="true"></span>Example · document approval</span>
-            <ol class="tf__rail" aria-hidden="true">
-              <li data-tf-phase="0"><span class="mono">01</span><span class="tf__rail-name">Map the As-Is</span></li>
-              <li data-tf-phase="1"><span class="mono">02</span><span class="tf__rail-name">AI analysis</span></li>
-              <li data-tf-phase="2"><span class="mono">03</span><span class="tf__rail-name">Redesign</span></li>
-              <li data-tf-phase="3"><span class="mono">04</span><span class="tf__rail-name">To-Be</span></li>
-            </ol>
-            <div class="tf__modes" role="group" aria-label="Show the process">
-              <button type="button" class="tf__mode" data-tf-mode="0" aria-pressed="true">As-Is</button>
-              <button type="button" class="tf__mode" data-tf-mode="1" aria-pressed="false">To-Be</button>
+    <!-- PROCESS · one pool, four lanes; the token runs through it as the visitor scrolls (assets/js/lanes.js) -->
+    <section class="method lanes-sec" id="process" data-stage="5" aria-labelledby="process-title">
+      <div class="lanes-sec__head">
+        <h2 id="process-title" class="section-title" data-split="chars">One process, four lanes</h2>
+        <p class="lanes-sec__lede">Every engagement runs the same way. The client brings a process, I lead it, AI agents draft and check, and developers build. Where a step needs judgment and where it is routine, the work splits and runs in parallel.</p>
+      </div>
+      <div class="method__stage" data-method>
+        <div class="method__rail" aria-hidden="true"><span data-lane="client"><b>Client</b></span><span data-lane="omar"><b>Omar</b></span><span><b>AI agents</b></span><span><b>Developers</b></span></div>
+        <div class="method__viewport">
+          <div class="method__track" data-method-track>
+            <div class="pool" data-flow="start>listen>capture>asis>scan>split;split>tobe>join;split>auto>join;join>build>test>end" data-assoc="capture:mom asis:asismap tobe:brd test:tests split:annot" data-ports="split>auto:bottom-left auto>join:right-bottom test>end:right-bottom">
+              <div class="pool__label"><span>How a process moves through me</span></div>
+              <div class="lanes">
+                <div class="lane lane--client">
+                  <div class="lane__label"><span>Client</span></div>
+                  <div class="lane__body">
+                    <div class="node node--start" data-node="start" style="--x:4%;--y:46%"><span class="node__shape"></span><span class="node__cap node__cap--top">Something is slowing them down</span></div>
+                    <div class="node node--annot" data-node="annot" style="--x:44%;--y:50%"><span class="node__shape">Judgment and routine<br>run in parallel</span></div>
+                    <div class="node node--end" data-node="end" style="--x:93%;--y:46%"><span class="node__shape"></span><span class="node__cap node__cap--top">Delivered</span></div>
+                  </div>
+                </div>
+                <div class="lane lane--omar">
+                  <div class="lane__label"><span>Omar</span></div>
+                  <div class="lane__body">
+                    <div class="node node--task" data-node="listen" style="--x:9%;--y:22%"><span class="node__shape">Listen</span></div>
+                    <p class="note" data-note="listen" style="--x:9%;--y:40%">I lead discovery sessions with the people who do the work and ask how the process really runs.</p>
+                    <div class="node node--task" data-node="asis" style="--x:27%;--y:22%"><span class="node__shape">Map the <span class="nowrap">As-Is</span></span></div>
+                    <p class="note" data-note="asis" style="--x:27%;--y:40%">Every hand-off, approval and re-check goes into a model the client recognises as their own.</p>
+                    <div class="node node--data" data-node="asismap" style="--x:33.2%;--y:80%"><span class="node__shape"><svg viewBox="0 0 34 42" aria-hidden="true"><path class="doc-body" d="M5 2h17l10 10v26a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path class="doc-fold" d="M22 2v8a2 2 0 0 0 2 2h8"/><path class="doc-line" d="M9 21h16M9 27h16M9 33h10"/></svg></span><span class="node__cap"><span class="nowrap">As-Is</span> map</span></div>
+                    <div class="node node--gate" data-node="split" style="--x:44%;--y:22%"><span class="node__shape"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M7 2h2v5h5v2H9v5H7V9H2V7h5z"/></svg></span></div>
+                    <div class="node node--task" data-node="tobe" style="--x:53%;--y:22%"><span class="node__shape">Design the <span class="nowrap">To-Be</span></span></div>
+                    <p class="note" data-note="tobe" style="--x:53%;--y:40%">A leaner flow, prototyped with Claude Code so stakeholders react to something real.</p>
+                    <div class="node node--data" data-node="brd" style="--x:59.2%;--y:80%"><span class="node__shape"><svg viewBox="0 0 34 42" aria-hidden="true"><path class="doc-body" d="M5 2h17l10 10v26a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path class="doc-fold" d="M22 2v8a2 2 0 0 0 2 2h8"/><path class="doc-line" d="M9 21h16M9 27h16M9 33h10"/></svg></span><span class="node__cap">BRD · RTM</span></div>
+                    <div class="node node--gate" data-node="join" style="--x:62%;--y:22%"><span class="node__shape"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M7 2h2v5h5v2H9v5H7V9H2V7h5z"/></svg></span></div>
+                    <div class="node node--task" data-node="test" style="--x:81%;--y:22%"><span class="node__shape">Test</span></div>
+                    <p class="note" data-note="test" style="--x:81%;--y:40%">I write and run the test cases against every acceptance criterion before it ships.</p>
+                    <div class="node node--data" data-node="tests" style="--x:87.2%;--y:80%"><span class="node__shape"><svg viewBox="0 0 34 42" aria-hidden="true"><path class="doc-body" d="M5 2h17l10 10v26a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path class="doc-fold" d="M22 2v8a2 2 0 0 0 2 2h8"/><path class="doc-line" d="M9 21h16M9 27h16M9 33h10"/></svg></span><span class="node__cap">Test cases</span></div>
+                  </div>
+                </div>
+                <div class="lane lane--ai">
+                  <div class="lane__label"><span>AI agents</span></div>
+                  <div class="lane__body">
+                    <div class="node node--task" data-node="capture" style="--x:18%;--y:24%"><span class="node__shape">Capture</span></div>
+                    <p class="note" data-note="capture" style="--x:18%;--y:46%">Wispr Flow records every session; Claude drafts the minutes for me to review.</p>
+                    <div class="node node--data" data-node="mom" style="--x:24.2%;--y:74%"><span class="node__shape"><svg viewBox="0 0 34 42" aria-hidden="true"><path class="doc-body" d="M5 2h17l10 10v26a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path class="doc-fold" d="M22 2v8a2 2 0 0 0 2 2h8"/><path class="doc-line" d="M9 21h16M9 27h16M9 33h10"/></svg></span><span class="node__cap">Minutes</span></div>
+                    <div class="node node--task" data-node="scan" style="--x:36%;--y:24%"><span class="node__shape">Find the waste</span></div>
+                    <p class="note" data-note="scan" style="--x:36%;--y:46%">Claude structures the <span class="nowrap">As-Is</span> and flags re-keying, waits and rework loops.</p>
+                    <div class="node node--task" data-node="auto" style="--x:53%;--y:24%"><span class="node__shape">Automate the routine</span></div>
+                    <p class="note" data-note="auto" style="--x:53%;--y:46%">Steps that need no judgment move to the system, so people keep the decisions.</p>
+                  </div>
+                </div>
+                <div class="lane lane--dev">
+                  <div class="lane__label"><span>Developers</span></div>
+                  <div class="lane__body">
+                    <div class="node node--task" data-node="build" style="--x:71%;--y:28%"><span class="node__shape">Build</span></div>
+                    <p class="note" data-note="build" style="--x:71%;--y:52%">Stories and acceptance criteria in Azure DevOps, built with the developers.</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-
-          <div class="tf__stage">
-            <svg class="tf__svg" data-tf-svg role="img" aria-labelledby="tf-desc" viewBox="0 0 1280 640"></svg>
-          </div>
-
-          <div class="tf__foot">
-            <p class="mono tf__status" data-tf-status>As-Is · 12 steps · 2 rework loops · a 3-day wait</p>
-            <dl class="tf__metrics">
-              <div class="tf__metric"><dt>Steps</dt><dd><span data-tf-m>12</span><span class="mono tf__delta" data-tf-delta>−50%</span></dd></div>
-              <div class="tf__metric"><dt>Manual steps</dt><dd><span data-tf-m>8</span><span class="mono tf__delta" data-tf-delta>−88%</span></dd></div>
-              <div class="tf__metric"><dt>Rework loops</dt><dd><span data-tf-m>2</span><span class="mono tf__delta" data-tf-delta>None</span></dd></div>
-            </dl>
-          </div>
         </div>
+        <div class="method__hint" aria-hidden="true"><span class="bar-meter"><span data-method-meter></span></span><span class="hint--motion">Scroll to move the token through the process</span><span class="hint--calm">Scroll sideways to follow the process</span></div>
 
-        <div class="sr-only" id="tf-desc">
-          <p>Example process, document approval. As-Is: 12 steps, 8 of them manual, with two rework loops: request arrives by email, logged in a spreadsheet, forwarded to a reviewer, documents checked by hand, missing documents chased (looping back to the start), re-keyed into the system, a three-day wait for the manager, print sign and scan, a second review (looping back to the document check), archived in a shared folder, requester emailed, done.</p>
-          <p>An AI agent flags duplicates, manual re-keying, waits and loops.</p>
-          <p>To-Be: 6 steps across three lanes. Requester: request via portal. AI agent: intake and logging, then completeness check. Team: one-click approval. AI agent: auto archive and notify. Requester: done. One manual step, no rework loops.</p>
+        <!-- Phones: the same process as four narrow lanes, each step marked in its own lane -->
+        <div class="mmap" data-mmap>
+          <div class="mmap__head" aria-hidden="true"><span data-lane="client"><b>Client</b></span><span data-lane="omar"><b>Omar</b></span><span><b>AI agents</b></span><span><b>Developers</b></span></div>
+          <div class="mmap__body" data-flow="m0>m1>m2>m3>m4>m5;m5>m6>m8;m5>m7>m8;m8>m9>m10>m11" data-ports="m5>m7:right-top m7>m8:bottom-right">
+          <div class="mmap__lanes" aria-hidden="true"><i></i><i data-lane="omar"></i><i></i><i></i></div>
+          <ol class="msteps">
+          <li class="mstep" data-lane="client"><span class="node node--start" data-node="m0"><span class="node__shape"></span></span><div class="mstep__body"><h3>Something is slowing them down</h3></div></li>
+          <li class="mstep" data-lane="omar"><span class="node node--mini" data-node="m1"><span class="node__shape"></span></span><div class="mstep__body"><h3>Listen</h3><p>I lead discovery sessions with the people who do the work and ask how the process really runs.</p></div></li>
+          <li class="mstep" data-lane="ai"><span class="node node--mini" data-node="m2"><span class="node__shape"></span></span><div class="mstep__body"><h3>Capture</h3><p>Wispr Flow records every session; Claude drafts the minutes for me to review.</p></div></li>
+          <li class="mstep" data-lane="omar"><span class="node node--mini" data-node="m3"><span class="node__shape"></span></span><div class="mstep__body"><h3>Map the <span class="nowrap">As-Is</span></h3><p>Every hand-off, approval and re-check goes into a model the client recognises as their own.</p></div></li>
+          <li class="mstep" data-lane="ai"><span class="node node--mini" data-node="m4"><span class="node__shape"></span></span><div class="mstep__body"><h3>Find the waste</h3><p>Claude structures the <span class="nowrap">As-Is</span> and flags re-keying, waits and rework loops.</p></div></li>
+          <li class="mstep" data-lane="omar"><span class="node node--gate" data-node="m5"><span class="node__shape"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M7 2h2v5h5v2H9v5H7V9H2V7h5z"/></svg></span></span><div class="mstep__body"><h3>Judgment and routine, in parallel</h3></div></li>
+          <li class="mstep" data-lane="omar"><span class="node node--mini" data-node="m6"><span class="node__shape"></span></span><div class="mstep__body"><h3>Design the <span class="nowrap">To-Be</span></h3><p>A leaner flow, prototyped with Claude Code so stakeholders react to something real.</p></div></li>
+          <li class="mstep" data-lane="ai"><span class="node node--mini" data-node="m7"><span class="node__shape"></span></span><div class="mstep__body"><h3>Automate the routine</h3><p>Steps that need no judgment move to the system, so people keep the decisions.</p></div></li>
+          <li class="mstep" data-lane="omar"><span class="node node--gate" data-node="m8"><span class="node__shape"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M7 2h2v5h5v2H9v5H7V9H2V7h5z"/></svg></span></span><div class="mstep__body"><h3>Both branches join</h3></div></li>
+          <li class="mstep" data-lane="dev"><span class="node node--mini" data-node="m9"><span class="node__shape"></span></span><div class="mstep__body"><h3>Build</h3><p>Stories and acceptance criteria in Azure DevOps, built with the developers.</p></div></li>
+          <li class="mstep" data-lane="omar"><span class="node node--mini" data-node="m10"><span class="node__shape"></span></span><div class="mstep__body"><h3>Test</h3><p>I write and run the test cases against every acceptance criterion.</p></div></li>
+          <li class="mstep" data-lane="client"><span class="node node--end" data-node="m11"><span class="node__shape"></span></span><div class="mstep__body"><h3>Delivered</h3></div></li>
+          </ol>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- WORK · stage 5: cards pin and stack -->
-    <section class="work" id="work" data-stage="5" aria-labelledby="work-title">
-      <h2 id="work-title" class="section-title" data-split="chars">Selected work</h2>
-
-      <div class="projects">
-        <article class="project" style="--i: 0">
-          <div class="project__side">
-            <h3 class="project__client">Capital-markets regulator</h3>
-            <p class="project__where"><span class="live-dot" aria-hidden="true"></span>Current project via Netways, Saudi Arabia</p>
-          </div>
-          <div class="project__main">
-            <ol class="project__steps">
-              <li><span class="mono">01</span><span>Discovery workshops with the regulator's teams</span></li>
-              <li><span class="mono">02</span><span>Extracting and documenting the <span class="nb">As-Is</span></span></li>
-              <li><span class="mono">03</span><span>Proposing enhancements and <span class="nb">To-Be</span> workflows</span></li>
-            </ol>
-            <p class="project__summary">Business analysis for a Saudi capital-markets regulator: understanding how the work runs today, then proposing workflows that reduce the manual effort in it.</p>
-            <ul class="project__tags">
-              <li>Discovery workshops</li><li><span class="nb">As-Is</span></li><li><span class="nb">To-Be</span> workflows</li><li>BRD</li><li>RTM</li>
+    <section class="work lanes-sec" id="work" data-stage="5" aria-labelledby="work-title">
+      <div class="lanes-sec__head lanes-sec__head--stack">
+        <h2 id="work-title" class="section-title" data-split="chars">Engagements</h2>
+        <p class="lanes-sec__lede">Regulators, banks and industry across the UAE and Saudi Arabia, through Netways. Open a case to see the scope and what I produced.</p>
+      </div>
+      <div class="pool pool--log">
+        <div class="pool__label"><span>Engagement log · Netways</span></div>
+        <ol class="log">
+        <li><details class="case" open>
+          <summary>
+            <span class="case__evt case__evt--live" aria-hidden="true"><i></i></span>
+            <span class="case__when num">Jun 2026 · Now</span>
+            <span><span class="case__name">Capital Market Authority</span><span class="case__where"><span class="case__live"><i aria-hidden="true"></i>Current</span>UAE federal regulator, formerly SCA</span></span>
+            <span class="case__what">End-to-end re-engineering of the authority's services, from <span class="nowrap">As-Is</span> discovery to <span class="nowrap">To-Be</span> designs for a new e-services portal.</span>
+            <span class="case__toggle" aria-hidden="true"><svg viewBox="0 0 256 256"><path d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg></span>
+          </summary>
+          <div class="case__body">
+            <div class="case__out"><span class="tag-l">As-Is and To-Be BRDs</span><span class="tag-l">SOPs</span><span class="tag-l">BPMN maps</span><span class="tag-l">Minutes of meeting</span><span class="tag-l">Portal users and roles</span><span class="tag-l">Arabic · English</span></div>
+            <ul class="case__scope">
+              <li>A catalogue of 200+ services across 13 departments, with up to 120 in the redesign scope, delivered in waves.</li>
+              <li>Discovery with every department: 26 sessions so far, each captured in minutes of meeting.</li>
+              <li>Requirements captured for every Wave 1 BRD to date: 24 <span class="nowrap">As-Is</span> and <span class="nowrap">To-Be</span> BRDs and 9 SOPs.</li>
+              <li>A new portal on Microsoft Dynamics 365 and Power Platform, with UAE PASS sign-in.</li>
             </ul>
           </div>
-        </article>
-
-        <article class="project" style="--i: 1">
-          <div class="project__side">
-            <h3 class="project__client">Petrochemical company</h3>
-            <p class="project__where">Previous project via Netways, Saudi Arabia</p>
-          </div>
-          <div class="project__main">
-            <!-- Add the specific system or process once confirmed. -->
-            <p class="project__summary project__summary--lead">Business analysis on a Netways engagement for a petrochemical company's operations in Saudi Arabia: client sessions, requirements documentation and workflow design.</p>
-            <ul class="project__tags">
-              <li>Client sessions</li><li>Requirements</li><li>Workflow design</li>
+        </details></li>
+        <li><details class="case">
+          <summary>
+            <span class="case__evt" aria-hidden="true"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="12.5"/><circle cx="14" cy="14" r="9.5"/><path d="M14 9.2V14l3.2 2.2"/></svg></span>
+            <span class="case__when num">May 2026</span>
+            <span><span class="case__name">Royal Commission for Jubail and Yanbu</span><span class="case__where">Saudi Arabia · with Omnix International</span></span>
+            <span class="case__what">A KPI governance platform on Liferay DXP that replaces Excel and email reporting with submit, review and approve workflows.</span>
+            <span class="case__toggle" aria-hidden="true"><svg viewBox="0 0 256 256"><path d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg></span>
+          </summary>
+          <div class="case__body">
+            <div class="case__out"><span class="tag-l">BRD</span><span class="tag-l">Use cases</span><span class="tag-l">KPI specifications</span></div>
+            <ul class="case__scope">
+              <li>About 100 strategic KPIs across four industrial cities, including a ministerial dashboard.</li>
+              <li>Co-authored the BRD: 37 use cases, with KPI use cases that set out formulas, frequencies and role-based approval.</li>
             </ul>
           </div>
-        </article>
-
-        <article class="project" style="--i: 2">
-          <div class="project__side">
-            <h3 class="project__client">This portfolio</h3>
-            <p class="project__where">Built end to end with AI</p>
-          </div>
-          <div class="project__main">
-            <ol class="project__steps">
-              <li><span class="mono">01</span><span>Built the site with Claude Code</span></li>
-              <li><span class="mono">02</span><span>Modelled the 3D thread and deliverables in Blender through MCP</span></li>
-              <li><span class="mono">03</span><span>Added an assistant that answers from my verified profile, ready to run on the Claude API</span></li>
-            </ol>
-            <p class="project__summary">A working example of how I build: describe the outcome, let agents do the heavy lifting, and review every result before it ships.</p>
-            <ul class="project__tags">
-              <li>Claude Code</li><li>MCP</li><li>Blender</li><li>Claude API</li>
+        </details></li>
+        <li><details class="case">
+          <summary>
+            <span class="case__evt" aria-hidden="true"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="12.5"/><circle cx="14" cy="14" r="9.5"/><path d="M14 9.2V14l3.2 2.2"/></svg></span>
+            <span class="case__when num">Jan · Apr 2026</span>
+            <span><span class="case__name">Saudi Chevron Phillips (S-Chem)</span><span class="case__where">Saudi Arabia · Jubail</span></span>
+            <span class="case__what">Modernising 25 employee-service and HSE workflow applications onto Liferay DXP for a petrochemical joint venture.</span>
+            <span class="case__toggle" aria-hidden="true"><svg viewBox="0 0 256 256"><path d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg></span>
+          </summary>
+          <div class="case__body">
+            <div class="case__out"><span class="tag-l">BRDs</span><span class="tag-l">Workshops</span><span class="tag-l">Azure DevOps backlogs</span></div>
+            <ul class="case__scope">
+              <li>Took part in 16 requirements workshops with the client's teams.</li>
+              <li>Authored or co-authored 10 of the 18 BRDs, covering 13 applications: access permits, material gate pass, job safety analysis, HR clearance, document review and turnaround requests.</li>
+              <li>Revised the BRDs after stakeholder review and turned them into Azure DevOps backlogs.</li>
             </ul>
           </div>
-        </article>
+        </details></li>
+        <li><details class="case">
+          <summary>
+            <span class="case__evt" aria-hidden="true"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="12.5"/><circle cx="14" cy="14" r="9.5"/><path d="M14 9.2V14l3.2 2.2"/></svg></span>
+            <span class="case__when num">Dec 2025 · Feb 2026</span>
+            <span><span class="case__name">Bank Albilad</span><span class="case__where">Saudi Arabia</span></span>
+            <span class="case__what">Phase 1 of an Arabic and English AI assistant and conversational IVR across the bank's digital and voice channels.</span>
+            <span class="case__toggle" aria-hidden="true"><svg viewBox="0 0 256 256"><path d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg></span>
+          </summary>
+          <div class="case__body">
+            <div class="case__out"><span class="tag-l">BRD</span><span class="tag-l">RTM</span><span class="tag-l">Process flow</span></div>
+            <ul class="case__scope">
+              <li>14 channels in scope, on a four-phase roadmap.</li>
+              <li>The Phase 1 BRD and the end-to-end inquiry flow: intent detection, knowledge-scope checks and live-agent handoff.</li>
+              <li>A traceability matrix of 78 requirements and 49 use cases.</li>
+            </ul>
+          </div>
+        </details></li>
+        <li><details class="case">
+          <summary>
+            <span class="case__evt" aria-hidden="true"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="12.5"/><circle cx="14" cy="14" r="9.5"/><path d="M14 9.2V14l3.2 2.2"/></svg></span>
+            <span class="case__when num">Dec 2025 · Jan 2026</span>
+            <span><span class="case__name">Social Development Bank</span><span class="case__where">Saudi Arabia</span></span>
+            <span class="case__what">Automating the bank's financing products on Microsoft Dynamics 365 with no-code business-rule, workflow and form engines.</span>
+            <span class="case__toggle" aria-hidden="true"><svg viewBox="0 0 256 256"><path d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg></span>
+          </summary>
+          <div class="case__body">
+            <div class="case__out"><span class="tag-l">Training materials</span><span class="tag-l">Functional specification</span><span class="tag-l">Arabic</span></div>
+            <ul class="case__scope">
+              <li>Arabic end-user training for the three engines behind configurable eligibility, approval and application forms.</li>
+              <li>Aligned with the functional specification: 28 use cases and 22 user roles.</li>
+            </ul>
+          </div>
+        </details></li>
+        <li><details class="case">
+          <summary>
+            <span class="case__evt" aria-hidden="true"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="12.5"/><circle cx="14" cy="14" r="9.5"/><path d="M14 9.2V14l3.2 2.2"/></svg></span>
+            <span class="case__when num">2026</span>
+            <span><span class="case__name">National Center for Government Resource Systems</span><span class="case__where">Saudi Arabia · NCGR</span></span>
+            <span class="case__what">Enhancements to the Center's internal employee portal.</span>
+            <span class="case__toggle" aria-hidden="true"><svg viewBox="0 0 256 256"><path d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg></span>
+          </summary>
+          <div class="case__body">
+            <div class="case__out"><span class="tag-l">User stories</span><span class="tag-l">Acceptance criteria</span><span class="tag-l">Arabic</span></div>
+            <ul class="case__scope">
+              <li>Arabic user stories with acceptance criteria and linked screen designs: a policy-acknowledgement flow and an auditor register with filtering and export.</li>
+            </ul>
+          </div>
+        </details></li>
+      </ol>
       </div>
     </section>
 
-    <!-- DELIVERABLES · pinned horizontal gallery of Blender-rendered artefacts -->
-    <section class="deliver" id="deliverables" data-stage="5" aria-labelledby="deliver-title">
-      <div class="deliver__pin" data-deliver-pin>
-        <div class="deliver__intro">
-          <h2 id="deliver-title" class="section-title" data-split="chars">What I deliver</h2>
-          <p class="deliver__lede">Every engagement leaves documents the client can sign and the developers can build and test from. AI drafts the structure; I own every line.</p>
-        </div>
-        <div class="deliver__viewport">
-          <ul class="deliver__track" data-deliver-track>
-            <li class="deliver__card">
-              <figure class="deliver__fig"><img src="assets/img/deliver-brd.webp" alt="" width="900" height="665" loading="lazy" decoding="async"></figure>
-              <h3 class="deliver__name">Business Requirements Document</h3>
-              <p class="deliver__desc">The agreed scope, business rules and requirements, written so the client can sign it and the team can build from it.</p>
-            </li>
-            <li class="deliver__card">
-              <figure class="deliver__fig"><img src="assets/img/deliver-rtm.webp" alt="" width="900" height="410" loading="lazy" decoding="async"></figure>
-              <h3 class="deliver__name">Requirements Traceability Matrix</h3>
-              <p class="deliver__desc">Each requirement linked to its design and its test, so nothing is lost between the workshop and the release.</p>
-            </li>
-            <li class="deliver__card">
-              <figure class="deliver__fig"><img src="assets/img/deliver-mom.webp" alt="" width="900" height="790" loading="lazy" decoding="async"></figure>
-              <h3 class="deliver__name">Minutes of meeting</h3>
-              <p class="deliver__desc">Captured with Wispr Flow and structured with Claude: decisions, owners and action items after every client session, so scope stays agreed.</p>
-            </li>
-            <li class="deliver__card">
-              <figure class="deliver__fig"><img src="assets/img/deliver-flow.webp" alt="" width="900" height="337" loading="lazy" decoding="async"></figure>
-              <h3 class="deliver__name">Workflow diagrams</h3>
-              <p class="deliver__desc"><span class="nb">As-Is</span> and <span class="nb">To-Be</span> flows that align stakeholders and developers on how the process should run.</p>
-            </li>
-            <li class="deliver__card">
-              <figure class="deliver__fig"><img src="assets/img/deliver-tests.webp" alt="" width="900" height="484" loading="lazy" decoding="async"></figure>
-              <h3 class="deliver__name">Test cases</h3>
-              <p class="deliver__desc">Written and run in Azure DevOps to check each feature against its acceptance criteria before it ships.</p>
-            </li>
-          </ul>
-        </div>
+    <!-- DELIVERABLES · data objects on one association line; each document animates its own work -->
+    <section class="deliver2 lanes-sec" id="deliverables" data-stage="5" aria-labelledby="deliver-title">
+      <div class="lanes-sec__head">
+        <h2 id="deliver-title" class="section-title" data-split="chars">What leaves my lane</h2>
+        <p class="lanes-sec__lede">Every engagement leaves documents the client can sign and the developers can build and test from. AI drafts the structure; I own every line.</p>
+      </div>
+      <div class="objects">
+        <article class="object">
+          <svg class="object__doc" viewBox="0 0 92 116" aria-hidden="true"><path class="doc-body" d="M8 4h54l26 26v78a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z"/><path class="doc-fold" d="M62 4v22a4 4 0 0 0 4 4h22z"/><path class="hi a-draw" pathLength="1" style="--d:0.00s" d="M16 24h30"/><path class="ln a-draw" pathLength="1" style="--d:0.25s" d="M16 44h56"/><path class="ln a-draw" pathLength="1" style="--d:0.43s" d="M16 54h56"/><path class="ln a-draw" pathLength="1" style="--d:0.61s" d="M16 64h48"/><path class="ln a-draw" pathLength="1" style="--d:0.79s" d="M16 74h56"/><path class="ln a-draw" pathLength="1" style="--d:0.97s" d="M16 84h40"/><path class="hi a-draw" pathLength="1" style="--d:1.40s" d="M50 98c4-6 8-6 10 0s6 6 12-2"/></svg>
+          <h3>Business Requirements Document</h3>
+          <p>The agreed scope, business rules and requirements, written so the client can sign it and the team can build from it.</p>
+        </article>
+        <article class="object">
+          <svg class="object__doc" viewBox="0 0 92 116" aria-hidden="true"><path class="doc-body" d="M8 4h54l26 26v78a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z"/><path class="doc-fold" d="M62 4v22a4 4 0 0 0 4 4h22z"/><path class="hi a-draw" pathLength="1" style="--d:0.00s" d="M16 24h24"/><rect class="box" x="16" y="42" width="60" height="56" rx="2"/><path class="box" d="M16 56h60M16 70h60M16 84h60M36 42v56M56 42v56"/><rect class="fillc a-pop" style="--d:0.3s" x="38" y="58" width="16" height="10" rx="1.5"/><rect class="fillc a-pop" style="--d:0.8s" x="58" y="72" width="16" height="10" rx="1.5"/><rect class="fillc a-pop" style="--d:1.3s" x="38" y="86" width="16" height="10" rx="1.5"/><path class="hi a-draw" pathLength="1" style="--d:1.8s" d="M46 63L66 77L46 91"/></svg>
+          <h3>Requirements Traceability Matrix</h3>
+          <p>Each requirement linked to its design and its test, so nothing is lost between the workshop and the release.</p>
+        </article>
+        <article class="object">
+          <svg class="object__doc" viewBox="0 0 92 116" aria-hidden="true"><path class="doc-body" d="M8 4h54l26 26v78a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z"/><path class="doc-fold" d="M62 4v22a4 4 0 0 0 4 4h22z"/><path class="hi a-draw" pathLength="1" style="--d:0.00s" d="M16 24h28"/><rect class="box" x="16" y="42" width="8" height="8" rx="1.5"/><rect class="box" x="16" y="60" width="8" height="8" rx="1.5"/><rect class="box" x="16" y="78" width="8" height="8" rx="1.5"/><path class="hi a-draw" pathLength="1" style="--d:0.40s" d="M17.5 46.2l2 2 3.5-4"/><path class="hi a-draw" pathLength="1" style="--d:0.85s" d="M17.5 64.2l2 2 3.5-4"/><path class="hi a-draw" pathLength="1" style="--d:1.30s" d="M17.5 82.2l2 2 3.5-4"/><path class="ln a-draw" pathLength="1" style="--d:0.20s" d="M32 46h40"/><path class="ln a-draw" pathLength="1" style="--d:0.65s" d="M32 64h34"/><path class="ln a-draw" pathLength="1" style="--d:1.10s" d="M32 82h40"/><circle class="dot a-pulse" cx="20" cy="98" r="4"/><path class="ln a-draw" pathLength="1" style="--d:1.70s" d="M32 98h28"/></svg>
+          <h3>Minutes of meeting</h3>
+          <p>Captured with Wispr Flow and structured with Claude: decisions, owners and action items after every client session.</p>
+        </article>
+        <article class="object">
+          <svg class="object__doc" viewBox="0 0 92 116" aria-hidden="true"><path class="doc-body" d="M8 4h54l26 26v78a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z"/><path class="doc-fold" d="M62 4v22a4 4 0 0 0 4 4h22z"/><path class="hi a-draw" pathLength="1" style="--d:0.00s" d="M16 24h22"/><circle class="box" cx="18" cy="50" r="5"/><rect class="box" x="28" y="43" width="16" height="14" rx="3"/><path class="box" d="M56 43l7 7-7 7-7-7z"/><rect class="box" x="46" y="72" width="20" height="13" rx="3"/><circle class="box" cx="76" cy="78.5" r="4.5" style="stroke-width:3.2"/><path class="hi" d="M23 50h5M44 50h5M56 57v15M66 78.5h5"/><circle class="dot a-ride" r="3.2"><animateMotion dur="3.6s" repeatCount="indefinite" path="M18 50H56V78.5H76" keyPoints="0;1;1" keyTimes="0;0.8;1" calcMode="linear"/></circle></svg>
+          <h3>Workflow diagrams</h3>
+          <p><span class="nb">As-Is</span> and <span class="nb">To-Be</span> flows in BPMN that align stakeholders and developers on how the process should run.</p>
+        </article>
+        <article class="object">
+          <svg class="object__doc" viewBox="0 0 92 116" aria-hidden="true"><path class="doc-body" d="M8 4h54l26 26v78a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z"/><path class="doc-fold" d="M62 4v22a4 4 0 0 0 4 4h22z"/><path class="hi a-draw" pathLength="1" style="--d:0.00s" d="M16 24h26"/><path class="hi a-draw" pathLength="1" style="--d:0.30s" d="M16 47l4 4 7-8"/><path class="hi a-draw" pathLength="1" style="--d:0.80s" d="M16 65l4 4 7-8"/><path class="hi a-draw" pathLength="1" style="--d:1.30s" d="M16 83l4 4 7-8"/><path class="ln a-draw" pathLength="1" style="--d:0.15s" d="M34 47h38"/><path class="ln a-draw" pathLength="1" style="--d:0.65s" d="M34 65h32"/><path class="ln a-draw" pathLength="1" style="--d:1.15s" d="M34 83h38"/><rect class="fillc a-pop" style="--d:1.9s" x="16" y="96" width="34" height="8" rx="4"/></svg>
+          <h3>Test cases</h3>
+          <p>Written and run in Azure DevOps to check each feature against its acceptance criteria before it ships.</p>
+        </article>
       </div>
     </section>
 
@@ -349,86 +445,35 @@
       <p class="sr-only">Toolkit: Claude, Wispr Flow, Claude Code, MCP, BRD, RTM, workflow diagrams, Azure DevOps, stakeholder management, user acceptance testing.</p>
     </section>
 
-    <section class="background" id="background" data-stage="5" aria-labelledby="bg-title">
+    <section class="background lanes-sec" id="background" data-stage="5" aria-labelledby="bg-title">
       <h2 id="bg-title" class="section-title" data-split="chars">Background</h2>
-      <div class="timeline">
-        <div class="timeline__col">
-          <h3 class="timeline__head">Experience</h3>
-          <ol>
-            <li>
-              <span class="mono timeline__date">Mar 2026 · Now</span>
-              <span class="timeline__what">Agentic Business Analyst</span>
-              <span class="timeline__where">Netways · Remote</span>
-            </li>
-            <li>
-              <span class="mono timeline__date">Dec 2025 · Feb 2026</span>
-              <span class="timeline__what">Business Analyst Intern</span>
-              <span class="timeline__where">Netways · moved to a full-time role</span>
-            </li>
-          </ol>
+      <div class="pool pool--bg">
+        <div class="pool__label"><span>Career · Omar Hazeem</span></div>
+        <div class="lanes lanes--auto">
+          <div class="lane"><div class="lane__label"><span>Netways</span></div>
+            <div class="lane__content lane__flow" data-flow="intern>ba">
+              <div class="tl-task" data-node="intern"><span class="num">Dec 2025 · Feb 2026</span><strong>Business Analyst Intern</strong><span>Moved to a full-time role</span></div>
+              <div class="tl-task tl-task--now" data-node="ba"><span class="num">Mar 2026 · Now</span><strong>Agentic Business Analyst</strong><span>Remote from Lebanon, clients in the UAE and Saudi Arabia</span></div>
+            </div></div>
+          <div class="lane"><div class="lane__label"><span>LIU</span></div>
+            <div class="lane__content"><div class="tl-task"><span class="num">2023 · 2026</span><strong>BSc Computer Science</strong><span>Lebanese International University · Dean's Honor List Spring 2024, Spring 2025, Fall 2025</span></div></div></div>
+          <div class="lane"><div class="lane__label"><span>Certificates</span></div>
+            <div class="lane__content"><ol class="tl">
+          <li><span class="num">Oct 2026</span><div><strong>Claude 101</strong><span>Anthropic · <a href="https://verify.skilljar.com/c/mvqe4fnhp8hg" target="_blank" rel="noopener">Verify</a></span></div></li>
+          <li><span class="num">Oct 2026</span><div><strong>Claude Platform 101</strong><span>Anthropic · <a href="https://verify.skilljar.com/c/o8objqhrume8" target="_blank" rel="noopener">Verify</a></span></div></li>
+          <li><span class="num">Oct 2026</span><div><strong>AI Fluency for Builders</strong><span>Anthropic · <a href="https://verify.skilljar.com/c/jrgbdgueejd5" target="_blank" rel="noopener">Verify</a></span></div></li>
+          <li><span class="num">Oct 2026</span><div><strong>AI Fluency for Creative Work</strong><span>Anthropic · <a href="https://verify.skilljar.com/c/f65xp7otw48x" target="_blank" rel="noopener">Verify</a></span></div></li>
+          <li><span class="num">Oct 2026</span><div><strong>Deploying Claude Enterprise with Confidence</strong><span>Anthropic · <a href="https://verify.skilljar.com/c/njw5jcwfzk47" target="_blank" rel="noopener">Verify</a></span></div></li>
+          <li><span class="num">Aug 2026</span><div><strong>Claude Code in Action</strong><span>Anthropic · <a href="https://verify.skilljar.com/c/8zaeiaixubob" target="_blank" rel="noopener">Verify</a></span></div></li>
+          <li><span class="num">Aug 2026</span><div><strong>Claude Code 101</strong><span>Anthropic · <a href="https://verify.skilljar.com/c/x6xqjjins7an" target="_blank" rel="noopener">Verify</a></span></div></li>
+          <li><span class="num">Aug 2025</span><div><strong>JavaScript Fundamentals</strong><span>GreatStack</span></div></li>
+          <li><span class="num">Mar 2024</span><div><strong>CCNA Industrial</strong><span>Cisco Networking Academy</span></div></li>
+          <li><span class="num">Dec 2023</span><div><strong>Get Connected</strong><span>Cisco Networking Academy</span></div></li>
+          <li><span class="num">Oct 2023</span><div><strong>Introduction to Office 365</strong><span>Alison</span></div></li>
+          <li><span class="num">Jun 2023</span><div><strong>Fundamentals of Digital Marketing</strong><span>Google</span></div></li>
+          <li><span class="num">Jun 2023</span><div><strong>Introduction to Cyber Security</strong><span>Great Learning</span></div></li>
+        </ol></div></div>
         </div>
-        <div class="timeline__col">
-          <h3 class="timeline__head">Education</h3>
-          <ol>
-            <li>
-              <span class="mono timeline__date">2023 · 2026</span>
-              <span class="timeline__what">BSc Computer Science</span>
-              <span class="timeline__where">Lebanese International University · Dean's Honor List Spring 2024, Spring 2025, Fall 2025</span>
-            </li>
-          </ol>
-        </div>
-      </div>
-
-      <!-- Certificates: Anthropic ones link to their public verification pages -->
-      <div class="certs">
-        <h3 class="timeline__head">Certificates</h3>
-        <ol>
-          <li>
-            <span class="mono timeline__date">Oct 2026</span>
-            <span class="timeline__what">Claude 101</span>
-            <a class="timeline__where certs__link" href="https://verify.skilljar.com/c/mvqe4fnhp8hg" target="_blank" rel="noopener" data-cursor-text="Verify">Anthropic · Verify</a>
-          </li>
-          <li>
-            <span class="mono timeline__date">Oct 2026</span>
-            <span class="timeline__what">Claude Platform 101</span>
-            <a class="timeline__where certs__link" href="https://verify.skilljar.com/c/o8objqhrume8" target="_blank" rel="noopener" data-cursor-text="Verify">Anthropic · Verify</a>
-          </li>
-          <li>
-            <span class="mono timeline__date">Oct 2026</span>
-            <span class="timeline__what">AI Fluency for Builders</span>
-            <a class="timeline__where certs__link" href="https://verify.skilljar.com/c/jrgbdgueejd5" target="_blank" rel="noopener" data-cursor-text="Verify">Anthropic · Verify</a>
-          </li>
-          <li>
-            <span class="mono timeline__date">Oct 2026</span>
-            <span class="timeline__what">AI Fluency for Creative Work</span>
-            <a class="timeline__where certs__link" href="https://verify.skilljar.com/c/f65xp7otw48x" target="_blank" rel="noopener" data-cursor-text="Verify">Anthropic · Verify</a>
-          </li>
-          <li>
-            <span class="mono timeline__date">Oct 2026</span>
-            <span class="timeline__what">Deploying Claude Enterprise with Confidence</span>
-            <a class="timeline__where certs__link" href="https://verify.skilljar.com/c/njw5jcwfzk47" target="_blank" rel="noopener" data-cursor-text="Verify">Anthropic · Verify</a>
-          </li>
-          <li>
-            <span class="mono timeline__date">Aug 2026</span>
-            <span class="timeline__what">Claude Code in Action</span>
-            <a class="timeline__where certs__link" href="https://verify.skilljar.com/c/8zaeiaixubob" target="_blank" rel="noopener" data-cursor-text="Verify">Anthropic · Verify</a>
-          </li>
-          <li>
-            <span class="mono timeline__date">Aug 2026</span>
-            <span class="timeline__what">Claude Code 101</span>
-            <a class="timeline__where certs__link" href="https://verify.skilljar.com/c/x6xqjjins7an" target="_blank" rel="noopener" data-cursor-text="Verify">Anthropic · Verify</a>
-          </li>
-          <li>
-            <span class="mono timeline__date">2025</span>
-            <span class="timeline__what">CCNA I</span>
-            <span class="timeline__where">Cisco Networking Academy</span>
-          </li>
-          <li>
-            <span class="mono timeline__date">2025</span>
-            <span class="timeline__what">JavaScript Fundamentals</span>
-            <span class="timeline__where">GreatStack</span>
-          </li>
-        </ol>
       </div>
     </section>
 
@@ -477,13 +522,14 @@
   <script src="assets/vendor/SplitText.min.js"></script>
   <script src="assets/vendor/lenis.min.js"></script>
   <script src="assets/vendor/three.min.js"></script>
-  <script src="assets/js/portrait-points.js?v=1023c"></script>
-  <script src="assets/js/thread-data.js?v=1023c"></script>
-  <script src="assets/js/matcap.js?v=1023c"></script>
-  <script src="assets/js/scene.js?v=1023c"></script>
-  <script src="assets/js/main.js?v=1023c"></script>
-  <script src="assets/js/transform.js?v=1023c"></script>
-  <script src="assets/js/assistant-config.js?v=1023c"></script>
-  <script src="assets/js/assistant.js?v=1023c"></script>
+  <script src="assets/js/portrait-points.js?v=1024m"></script>
+  <script src="assets/js/thread-data.js?v=1024m"></script>
+  <script src="assets/js/matcap.js?v=1024m"></script>
+  <script src="assets/js/scene.js?v=1024m"></script>
+  <script src="assets/js/main.js?v=1024m"></script>
+  <script src="assets/js/flow.js?v=1024m"></script>
+  <script src="assets/js/lanes.js?v=1024m"></script>
+  <script src="assets/js/assistant-config.js?v=1024m"></script>
+  <script src="assets/js/assistant.js?v=1024m"></script>
 </body>
 </html>
