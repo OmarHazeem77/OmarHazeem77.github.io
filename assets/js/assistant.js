@@ -9,7 +9,7 @@
   var EMAIL = "omarhazeem2005@gmail.com";
   var LINKEDIN = "https://www.linkedin.com/in/omar-hazeem-71991427b/";
   var PHONE = "+961 71 829 730";
-  var CV = "assets/cv/Omar-Hazeem-Agentic-Business-Analyst-CV.pdf";
+  var CV = "assets/cv/Omar-Hazeem-Agentic-Business-Analyst-CV.pdf?v=1024cv";
   var root = document.documentElement;
   var motionOn = function () { return root.getAttribute("data-motion") === "on"; };
 
