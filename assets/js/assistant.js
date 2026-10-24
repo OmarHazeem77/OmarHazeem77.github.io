@@ -9,7 +9,7 @@
   var EMAIL = "omarhazeem2005@gmail.com";
   var LINKEDIN = "https://www.linkedin.com/in/omar-hazeem-71991427b/";
   var PHONE = "+961 71 829 730";
-  var CV = "assets/cv/Omar-Hazeem-Agentic-Business-Analyst-CV.pdf?v=1024cv";
+  var CV = "assets/cv/Omar-Hazeem-CV.pdf?v=1024cn";
   var root = document.documentElement;
   var motionOn = function () { return root.getAttribute("data-motion") === "on"; };
 
@@ -563,7 +563,7 @@
       if (bit === "{email}") { var a = el("a", null, EMAIL); a.href = "mailto:" + EMAIL; a.dir = "ltr"; parent.appendChild(a); }
       else if (bit === "{linkedin}") { var l = el("a", null, "LinkedIn"); l.href = LINKEDIN; l.target = "_blank"; l.rel = "noopener"; parent.appendChild(l); }
       else if (bit === "{phone}") { var t = el("a", null, PHONE); t.href = "tel:" + PHONE.replace(/\s/g, ""); t.dir = "ltr"; parent.appendChild(t); }
-      else if (bit === "{cv}") { var c = el("a", null, ar ? "تحميل السيرة الذاتية (PDF)" : "Download CV (PDF)"); c.href = CV; c.setAttribute("download", "Omar Hazeem - Agentic Business Analyst CV.pdf"); c.setAttribute("data-cv", ""); parent.appendChild(c); }
+      else if (bit === "{cv}") { var c = el("a", null, ar ? "تحميل السيرة الذاتية (PDF)" : "Download CV (PDF)"); c.href = CV; c.setAttribute("download", "Omar Hazeem CV.pdf"); c.setAttribute("data-cv", ""); parent.appendChild(c); }
       else if (bit) parent.appendChild(document.createTextNode(bit));
     });
   }
