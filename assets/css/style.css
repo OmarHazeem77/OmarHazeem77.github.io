@@ -29,6 +29,7 @@
 }
 
 :root {
+  --vh: 1vh; /* the head script replaces this with a locked pixel height */
   --bg: #07090D;
   --bg-2: #0C0F15;
   --text: #E8ECF2;
@@ -324,9 +325,9 @@ html[data-motion="on"] .motion-toggle__dot { background: var(--accent); }
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  min-height: 100vh; min-height: 100dvh;
+  min-height: calc(100 * var(--vh));
   display: flex; align-items: flex-end;
-  padding: calc(var(--nav-h) + 24px) var(--gutter) clamp(40px, 8vh, 88px);
+  padding: calc(var(--nav-h) + 24px) var(--gutter) clamp(40px, calc(8 * var(--vh)), 88px);
 }
 .hero__fallback { display: none; }
 .no-webgl .hero__fallback {
@@ -337,7 +338,7 @@ html[data-motion="on"] .motion-toggle__dot { background: var(--accent); }
 }
 .hero__copy { position: relative; max-width: min(46rem, 50vw); }
 .hero__role {
-  margin-top: clamp(16px, 2.4vh, 24px);
+  margin-top: clamp(16px, calc(2.4 * var(--vh)), 24px);
   font-size: clamp(1.05rem, 1.3vw, 1.25rem); font-weight: 500; color: var(--muted);
 }
 .hero__name {
@@ -353,14 +354,14 @@ html[data-motion="on"] .motion-toggle__dot { background: var(--accent); }
   line-height: 1.45;
   text-wrap: pretty;
 }
-.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(26px, 4vh, 40px); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(26px, calc(4 * var(--vh)), 40px); }
 
 /* ---------- Statement ---------- */
 .statement {
   position: relative;
-  min-height: 115vh;
+  min-height: calc(115 * var(--vh));
   display: flex; align-items: center;
-  padding: 18vh var(--gutter);
+  padding: calc(18 * var(--vh)) var(--gutter);
 }
 .statement__text {
   max-width: min(14.5em, 60vw);
@@ -374,7 +375,7 @@ html[data-motion="on"] .motion-toggle__dot { background: var(--accent); }
 .story { position: relative; }
 .story__pin {
   position: sticky; top: 0;
-  height: 100vh; height: 100dvh;
+  height: calc(100 * var(--vh));
   display: grid;
   grid-template-columns: auto minmax(0, 34rem) 1fr;
   align-items: center;
@@ -382,10 +383,10 @@ html[data-motion="on"] .motion-toggle__dot { background: var(--accent); }
   padding: var(--nav-h) var(--gutter) 0;
   z-index: 1;
 }
-.story__step { height: 92vh; }
-.story__step:last-of-type { height: 105vh; }
+.story__step { height: calc(92 * var(--vh)); }
+.story__step:last-of-type { height: calc(105 * var(--vh)); }
 /* the first step overlaps the pin so act 1 does not hold for a whole extra screen */
-.story__pin + .story__step { margin-top: -60vh; }
+.story__pin + .story__step { margin-top: calc(-60 * var(--vh)); }
 
 .story__rail { position: relative; padding-left: 22px; }
 .story__rail ol { display: flex; flex-direction: column; gap: 22px; }
@@ -447,14 +448,14 @@ a:hover .roll > span:last-child, a:focus-visible .roll > span:last-child { trans
 }
 
 /* ---------- Work: cards pin and stack ---------- */
-.work { padding: clamp(120px, 16vh, 200px) var(--gutter) clamp(100px, 14vh, 160px); }
+.work { padding: clamp(120px, calc(16 * var(--vh)), 200px) var(--gutter) clamp(100px, calc(14 * var(--vh)), 160px); }
 .projects {
-  display: flex; flex-direction: column; gap: 8vh;
-  margin-top: clamp(40px, 6vh, 72px);
+  display: flex; flex-direction: column; gap: calc(8 * var(--vh));
+  margin-top: clamp(40px, calc(6 * var(--vh)), 72px);
 }
 .project {
   position: sticky;
-  top: calc(var(--nav-h) + 4vh + var(--i) * 28px);
+  top: calc(var(--nav-h) + calc(4 * var(--vh)) + var(--i) * 28px);
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   column-gap: clamp(28px, 5vw, 96px);
@@ -492,13 +493,13 @@ a:hover .roll > span:last-child, a:focus-visible .roll > span:last-child { trans
    Coral marks only As-Is problems; lime marks only what the redesign automates. */
 .tf { position: relative; }
 .tf__pin {
-  display: flex; flex-direction: column; gap: clamp(16px, 2.6vh, 28px);
-  padding: clamp(120px, 16vh, 200px) var(--gutter) clamp(40px, 6vh, 80px);
+  display: flex; flex-direction: column; gap: clamp(16px, calc(2.6 * var(--vh)), 28px);
+  padding: clamp(120px, calc(16 * var(--vh)), 200px) var(--gutter) clamp(40px, calc(6 * var(--vh)), 80px);
 }
 .tf.is-pinned .tf__pin {
   /* svh, not dvh: on phones the panel must not jump when the address bar slides away mid-pin */
-  min-height: 100vh; min-height: 100svh; justify-content: center;
-  padding: calc(var(--nav-h) + 2.4vh) var(--gutter) 3vh;
+  min-height: calc(100 * var(--vh)); justify-content: center;
+  padding: calc(var(--nav-h) + calc(2.4 * var(--vh))) var(--gutter) calc(3 * var(--vh));
 }
 .tf__head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 40rem); align-items: end; gap: 12px 48px; }
 .tf .section-title { font-size: clamp(2.4rem, 4.2vw, 4rem); }
@@ -536,9 +537,9 @@ a:hover .roll > span:last-child, a:focus-visible .roll > span:last-child { trans
 
 .tf__stage { padding: clamp(6px, 1.2vw, 14px); }
 .tf__svg { display: block; width: 100%; height: auto; }
-.tf.is-pinned .tf__svg { max-height: calc(100vh - 380px); max-height: calc(100svh - 380px); min-height: 240px; }
+.tf.is-pinned .tf__svg { max-height: calc(calc(100 * var(--vh)) - 380px); min-height: 240px; }
 /* short screens (a phone held sideways) don't pin: keep the whole diagram inside one screen */
-@media (max-height: 559.98px) { .tf__svg { max-height: calc(100vh - 175px); max-height: calc(100svh - 175px); } }
+@media (max-height: 559.98px) { .tf__svg { max-height: calc(calc(100 * var(--vh)) - 175px); } }
 
 .tf__status { margin-left: auto; font-size: 0.78rem; color: var(--muted); text-align: right; }
 .tf__metrics { order: -1; display: flex; gap: clamp(18px, 3vw, 44px); }
@@ -604,7 +605,7 @@ a:hover .roll > span:last-child, a:focus-visible .roll > span:last-child { trans
   .tf__rail li:not(.is-active) .tf__rail-name { display: none; }
   .tf__modes { flex: none; }
   .tf__mode { padding: 6px 11px; }
-  .tf.is-pinned .tf__svg { max-height: calc(100vh - 312px); max-height: calc(100svh - 312px); }
+  .tf.is-pinned .tf__svg { max-height: calc(calc(100 * var(--vh)) - 312px); }
   .tf__status { width: 100%; font-size: 0.72rem; text-align: left; margin-left: 0; }
   .tf.is-pinned .tf__status { display: none; }
   .tf.is-pinned .tf__foot { padding-right: 68px; }
@@ -614,7 +615,7 @@ a:hover .roll > span:last-child, a:focus-visible .roll > span:last-child { trans
 }
 
 /* ---------- Toolkit marquee ---------- */
-.toolkit { padding: clamp(40px, 6vh, 80px) 0; overflow: hidden; border-block: 1px solid var(--line); background: rgb(var(--bg-rgb) / 0.5); }
+.toolkit { padding: clamp(40px, calc(6 * var(--vh)), 80px) 0; overflow: hidden; border-block: 1px solid var(--line); background: rgb(var(--bg-rgb) / 0.5); }
 .marquee { display: flex; overflow: hidden; }
 .marquee__track {
   display: flex; align-items: center; gap: clamp(24px, 3vw, 48px);
@@ -628,8 +629,8 @@ a:hover .roll > span:last-child, a:focus-visible .roll > span:last-child { trans
 .marquee__sep { width: clamp(28px, 3vw, 48px); height: 2px; background: var(--accent-text); }
 
 /* ---------- Background ---------- */
-.background { padding: clamp(120px, 16vh, 200px) var(--gutter); }
-.timeline { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 5vw, 96px); margin-top: clamp(40px, 6vh, 72px); }
+.background { padding: clamp(120px, calc(16 * var(--vh)), 200px) var(--gutter); }
+.timeline { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 5vw, 96px); margin-top: clamp(40px, calc(6 * var(--vh)), 72px); }
 .timeline__head { font-size: 1.15rem; font-weight: 600; color: var(--muted); padding-bottom: 14px; border-bottom: 1px solid var(--line-strong); }
 .timeline li, .certs li {
   display: grid; grid-template-columns: 11rem minmax(0, 1fr); column-gap: 20px; row-gap: 2px;
@@ -639,7 +640,7 @@ a:hover .roll > span:last-child, a:focus-visible .roll > span:last-child { trans
 .timeline__what { font-size: clamp(1.25rem, 1.8vw, 1.6rem); font-weight: 560; letter-spacing: -0.02em; line-height: 1.2; }
 .timeline__where { color: var(--muted); font-size: 0.95rem; }
 /* certificates: the same rows as the timeline, flowing down two columns */
-.certs { margin-top: clamp(48px, 7vh, 88px); }
+.certs { margin-top: clamp(48px, calc(7 * var(--vh)), 88px); }
 .certs ol { columns: 2; column-gap: clamp(32px, 5vw, 96px); margin-top: 0; }
 .certs li { break-inside: avoid; }
 .certs__link { justify-self: start; text-decoration: none; transition: color 0.2s ease; }
@@ -649,9 +650,9 @@ a:hover .roll > span:last-child, a:focus-visible .roll > span:last-child { trans
 /* ---------- Contact ---------- */
 .contact {
   position: relative;
-  min-height: 100vh; min-height: 100dvh;
+  min-height: calc(100 * var(--vh));
   display: flex; flex-direction: column; justify-content: space-between;
-  padding: calc(var(--nav-h) + 12vh) var(--gutter) 8vh;
+  padding: calc(var(--nav-h) + calc(12 * var(--vh))) var(--gutter) calc(8 * var(--vh));
 }
 .contact__copy { max-width: min(44rem, 52vw); }
 .contact__title {
@@ -660,7 +661,7 @@ a:hover .roll > span:last-child, a:focus-visible .roll > span:last-child { trans
   text-wrap: balance;
 }
 .contact__email {
-  display: inline-block; margin-top: clamp(28px, 5vh, 52px);
+  display: inline-block; margin-top: clamp(28px, calc(5 * var(--vh)), 52px);
   color: var(--text); text-decoration: none;
   font-size: clamp(1.4rem, 2.6vw, 2.4rem); font-weight: 500; letter-spacing: -0.02em;
   background: linear-gradient(var(--accent-text), var(--accent-text)) left bottom / 0% 2px no-repeat;
@@ -700,10 +701,10 @@ a:hover .roll > span:last-child, a:focus-visible .roll > span:last-child { trans
 /* ---------- Deliverables: a pinned gallery of Blender-rendered artefacts ---------- */
 .deliver { position: relative; overflow-x: clip; }
 .deliver__pin {
-  min-height: 100vh; min-height: 100dvh;
+  min-height: calc(100 * var(--vh));
   display: flex; flex-direction: column; justify-content: center;
-  gap: clamp(24px, 4vh, 44px);
-  padding: var(--nav-h) 0 4vh;
+  gap: clamp(24px, calc(4 * var(--vh)), 44px);
+  padding: var(--nav-h) 0 calc(4 * var(--vh));
 }
 .deliver__intro { padding: 0 var(--gutter); }
 .deliver__name { max-width: 18ch; }
@@ -715,7 +716,7 @@ a:hover .roll > span:last-child, a:focus-visible .roll > span:last-child { trans
 }
 .deliver__viewport::-webkit-scrollbar { display: none; }
 .deliver.is-pinned .deliver__viewport { overflow: visible; }
-.deliver__track { display: flex; align-items: flex-start; gap: clamp(28px, 3.4vw, 64px); width: max-content; padding-right: var(--gutter); margin-top: clamp(16px, 3.5vh, 40px); }
+.deliver__track { display: flex; align-items: flex-start; gap: clamp(28px, 3.4vw, 64px); width: max-content; padding-right: var(--gutter); margin-top: clamp(16px, calc(3.5 * var(--vh)), 40px); }
 /* no pinned pan (motion off) on wide screens: the cards simply wrap into a grid */
 @media (min-width: 900px) {
   .deliver:not(.is-pinned) .deliver__viewport { overflow: visible; }
@@ -727,12 +728,12 @@ a:hover .roll > span:last-child, a:focus-visible .roll > span:last-child { trans
   .deliver:not(.is-pinned) .deliver__card:nth-child(3) { --g: 19; }
   .deliver:not(.is-pinned) .deliver__card:nth-child(4) { --g: 25; }
 }
-.deliver__card { --w: 21vw; width: min(var(--w), 38vh); min-width: 220px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 8px; margin-top: var(--drop, 0px); }
+.deliver__card { --w: 21vw; width: min(var(--w), calc(38 * var(--vh))); min-width: 220px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 8px; margin-top: var(--drop, 0px); }
 .deliver__card:nth-child(1) { --w: 24vw; }
-.deliver__card:nth-child(2) { --w: 21vw; --drop: 7vh; }
-.deliver__card:nth-child(3) { --w: 19vw; --drop: 2vh; }
-.deliver__card:nth-child(4) { --w: 25vw; --drop: 9vh; }
-.deliver__card:nth-child(5) { --w: 20vw; --drop: 4vh; }
+.deliver__card:nth-child(2) { --w: 21vw; --drop: calc(7 * var(--vh)); }
+.deliver__card:nth-child(3) { --w: 19vw; --drop: calc(2 * var(--vh)); }
+.deliver__card:nth-child(4) { --w: 25vw; --drop: calc(9 * var(--vh)); }
+.deliver__card:nth-child(5) { --w: 20vw; --drop: calc(4 * var(--vh)); }
 .deliver__fig { margin: 0; will-change: transform; }
 .deliver__fig img { display: block; width: 100%; height: auto; transition: transform 0.9s var(--ease); }
 .deliver__card:hover .deliver__fig img { transform: translateY(-8px); }
@@ -740,7 +741,7 @@ a:hover .roll > span:last-child, a:focus-visible .roll > span:last-child { trans
 .deliver__desc { color: var(--muted); font-size: 0.98rem; max-width: 34ch; text-wrap: pretty; }
 
 /* ---------- Site footer ---------- */
-.site-footer { position: relative; z-index: 2; padding: clamp(44px, 7vh, 80px) var(--gutter) 28px; border-top: 1px solid var(--line); }
+.site-footer { position: relative; z-index: 2; padding: clamp(44px, calc(7 * var(--vh)), 80px) var(--gutter) 28px; border-top: 1px solid var(--line); }
 .site-footer__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; max-width: 44rem; }
 .site-footer__h { margin-bottom: 14px; font-size: 0.85rem; font-weight: 500; color: var(--muted); }
 .site-footer li + li { margin-top: 8px; }
@@ -772,13 +773,13 @@ a:hover .roll > span:last-child, a:focus-visible .roll > span:last-child { trans
   .hero__copy { max-width: none; }
   .hero__name { font-size: clamp(3rem, 15vw, 4.4rem); }
 
-  .statement { min-height: 100vh; align-items: flex-end; padding-bottom: 12vh; }
+  .statement { min-height: calc(100 * var(--vh)); align-items: flex-end; padding-bottom: calc(12 * var(--vh)); }
   .statement__text { max-width: none; font-size: clamp(1.7rem, 7.4vw, 2.3rem); }
   .story__pin {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto 1fr auto;
     align-items: end;
-    padding: calc(var(--nav-h) + 10px) var(--gutter) max(7vh, 88px); /* clear of the chat button */
+    padding: calc(var(--nav-h) + 10px) var(--gutter) max(calc(7 * var(--vh)), 88px); /* clear of the chat button */
   }
   .story__pin::before {
     content: ""; position: absolute; inset: 45% 0 0 0; z-index: -1;
@@ -792,10 +793,10 @@ a:hover .roll > span:last-child, a:focus-visible .roll > span:last-child { trans
   .story__progress span { transform-origin: 0 50%; }
   .story__acts { grid-row: 3; }
   .story__title { font-size: clamp(2rem, 9vw, 2.7rem); }
-  .story__step { height: 92vh; }
-  .story__step:last-of-type { height: 105vh; }
+  .story__step { height: calc(92 * var(--vh)); }
+  .story__step:last-of-type { height: calc(105 * var(--vh)); }
 
-  .project { grid-template-columns: minmax(0, 1fr); row-gap: 28px; min-height: 0; top: calc(var(--nav-h) + 2vh + var(--i) * 16px); padding: 26px 22px; }
+  .project { grid-template-columns: minmax(0, 1fr); row-gap: 28px; min-height: 0; top: calc(var(--nav-h) + calc(2 * var(--vh)) + var(--i) * 16px); padding: 26px 22px; }
   .timeline { grid-template-columns: minmax(0, 1fr); }
   .deliver { padding: 72px 0; }
   .deliver__pin { min-height: 0; padding: 0; }
@@ -807,7 +808,7 @@ a:hover .roll > span:last-child, a:focus-visible .roll > span:last-child { trans
   .certs ol { columns: 1; }
   .timeline__date { grid-row: auto; padding-top: 0; }
 
-  .contact { padding-top: calc(var(--nav-h) + 40vh); }
+  .contact { padding-top: calc(var(--nav-h) + calc(40 * var(--vh))); }
   .contact::before {
     content: ""; position: absolute; inset: 30% 0 0 0;
     background: linear-gradient(to bottom, rgb(var(--bg-rgb) / 0), rgb(var(--bg-rgb) / 0.9) 40%, rgb(var(--bg-rgb) / 0.9) 85%, rgb(var(--bg-rgb) / 0));
@@ -894,7 +895,7 @@ html[data-motion="off"] .assistant-say { transition: none; }
 .assistant {
   position: fixed; right: 20px; bottom: 20px; z-index: 46;
   width: min(392px, calc(100vw - 40px));
-  height: min(600px, calc(100dvh - var(--nav-h) - 40px));
+  height: min(600px, calc(calc(100 * var(--vh)) - var(--nav-h) - 40px));
   display: flex; flex-direction: column;
   border: 1px solid var(--line-strong); border-radius: var(--radius);
   background: rgb(var(--bg-rgb) / 0.9);
@@ -994,7 +995,7 @@ html[data-motion="off"] .msg--typing span { animation: none; opacity: 0.6; }
   /* phones: a floating card over the lower part of the screen, so the page stays in view above it */
   .assistant {
     left: 12px; right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); top: auto;
-    width: auto; height: min(560px, 74svh);
+    width: auto; height: min(560px, calc(74 * var(--vh)));
     background: rgb(var(--bg-rgb) / 0.96);
     transform-origin: 50% 100%;
   }
