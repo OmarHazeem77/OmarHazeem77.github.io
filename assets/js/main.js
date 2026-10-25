@@ -11,6 +11,8 @@
   if (hasGsap) {
     gsap.registerPlugin(ScrollTrigger);
     if (window.SplitText) gsap.registerPlugin(SplitText);
+    // phones resize the viewport as the address bar shows and hides; re-measuring then would shift every trigger mid-swipe
+    ScrollTrigger.config({ ignoreMobileResize: true });
   }
 
   /* ---------- Motion preference ---------- */
@@ -54,23 +56,37 @@
   }
 
   /* ---------- Smooth scroll ---------- */
+  // Lenis smooths the mouse wheel on desktops only. On touch screens, narrow windows and devtools' responsive
+  // mode the browser scrolls natively: a native scroll there (a swipe, a scrollbar drag, a touch-drag in device
+  // mode) ran under Lenis and got pulled back to Lenis's own position, which read as the page jumping up.
   var lenis = null;
-  if (motion && window.Lenis && hasGsap) {
-    lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.95, smoothWheel: true });
-    window.OHLenis = lenis; // transform.js scrolls to the As-Is / To-Be ends with it
-    lenis.on("scroll", ScrollTrigger.update);
-    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
-    gsap.ticker.lagSmoothing(0);
-    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
-      a.addEventListener("click", function (e) {
-        var id = a.getAttribute("href");
-        var target = id === "#top" ? 0 : document.querySelector(id);
-        if (target === null) return;
-        e.preventDefault();
-        lenis.scrollTo(target, { duration: 1.6, easing: function (x) { return 1 - Math.pow(1 - x, 4); } });
-      });
-    });
+  var smoothMQ = window.matchMedia("(pointer: fine) and (min-width: 1100px)");
+  function setSmooth() {
+    var want = motion && !!window.Lenis && hasGsap && smoothMQ.matches;
+    if (want && !lenis) {
+      lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.95, smoothWheel: true });
+      lenis.on("scroll", ScrollTrigger.update);
+    } else if (!want && lenis) {
+      lenis.destroy(); lenis = null;
+    }
+    window.OHLenis = lenis;
   }
+  if (hasGsap) {
+    gsap.ticker.add(function (t) { if (lenis) lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+  setSmooth();
+  if (smoothMQ.addEventListener) smoothMQ.addEventListener("change", function () { setSmooth(); if (hasGsap) ScrollTrigger.refresh(); });
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      if (!lenis) return;   // native scrolling: the browser jumps to the section itself
+      var id = a.getAttribute("href");
+      var target = id === "#top" ? 0 : document.querySelector(id);
+      if (target === null) return;
+      e.preventDefault();
+      lenis.scrollTo(target, { duration: 1.6, easing: function (x) { return 1 - Math.pow(1 - x, 4); } });
+    });
+  });
 
   /* ---------- Scroll to stage ---------- */
   // Each [data-stage] section holds its formation while it fills the screen;
